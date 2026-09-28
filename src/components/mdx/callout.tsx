@@ -34,12 +34,15 @@ export function Callout({
   const tone = TONES[isTone(type) ? type : "info"];
   return (
     <div role="note" className={cn("my-6 flex gap-3 rounded-md p-4", tone.surface)}>
-      {createElement(icon ? iconFor(icon) : tone.icon, {
-        "aria-hidden": true,
-        className: cn("mt-1 size-4 shrink-0", tone.mark),
-      })}
+      <span className="sr-only">{tone.label}: </span>
+      {/* One line box tall, so the icon centres on the first line of text. */}
+      <span aria-hidden className="flex h-lh shrink-0 items-center">
+        {createElement(icon ? iconFor(icon) : tone.icon, {
+          "aria-hidden": true,
+          className: cn("size-4", tone.mark),
+        })}
+      </span>
       <div className="prose-callout min-w-0 flex-1">
-        <span className="sr-only">{tone.label}: </span>
         {children}
       </div>
     </div>
