@@ -2,6 +2,11 @@ import type { MDXComponents } from "mdx/types";
 import Link from "next/link";
 import { Suspense, type ComponentProps } from "react";
 
+import { Destination, Destinations } from "@/components/home/destinations";
+import { Finale } from "@/components/home/finale";
+import { Hero } from "@/components/home/hero";
+import { Journey, JourneyStep } from "@/components/home/journey";
+import { Live } from "@/components/home/live";
 import { ButtonLink } from "@/components/mdx/button-link";
 import { Callout } from "@/components/mdx/callout";
 import { Card, Cards } from "@/components/mdx/cards";
@@ -72,4 +77,12 @@ export const mdxComponents: MDXComponents = {
   PageLink,
   Step,
   Steps,
+  // The welcome page (layout: home).
+  Destination,
+  Destinations,
+  Finale,
+  Hero,
+  Journey,
+  JourneyStep,
+  Live,
 };

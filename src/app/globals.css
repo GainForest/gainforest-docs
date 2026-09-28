@@ -844,6 +844,331 @@
   }
 }
 
+/* --- Welcome page ---------------------------------------------------------
+   The one page that is allowed to perform. It is seen once a visit at most,
+   so it sits at the rare end of the frequency table: the headline rises word
+   by word out of a blur, the globe comes into focus, blocks arrive once as
+   they scroll into view (Motion, in src/components/home), and a few things
+   move on their own, slowly, where motion says the page is live (the
+   globe's turn, the roster strip, the breathing halo, the aurora).
+
+   First-screen entrances are CSS with `backwards` fill so they run on first
+   paint without waiting for hydration, and a failed animation leaves the
+   content visible. Everything below is transform, opacity, filter, or a
+   stroke offset. */
+
+@keyframes gf-word {
+  from {
+    opacity: 0;
+    transform: translateY(35%);
+    filter: blur(10px);
+  }
+}
+
+@keyframes gf-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(6px);
+  }
+}
+
+@keyframes gf-globe-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+    filter: blur(8px);
+  }
+}
+
+@keyframes gf-stroke {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes gf-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gf-breathe {
+  from {
+    transform: scale(0.94);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes gf-wave {
+  from {
+    transform: scaleY(0.3);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes gf-scroll-away {
+  to {
+    transform: translateY(10%) scale(0.9);
+    opacity: 0.2;
+  }
+}
+
+@keyframes gf-drift-1 {
+  to {
+    transform: translate(35%, 25%) scale(1.15);
+  }
+}
+@keyframes gf-drift-2 {
+  to {
+    transform: translate(-30%, 20%) scale(0.9);
+  }
+}
+@keyframes gf-drift-3 {
+  to {
+    transform: translate(20%, -30%) scale(1.1);
+  }
+}
+
+@layer components {
+  /* The headline: word i starts 70ms after word i-1; the accent's stroke
+     draws once the sentence has landed (--d, set from the word count). */
+  .hero-word {
+    animation: gf-word 800ms var(--ease-out-strong) calc(80ms + var(--i, 0) * 70ms) backwards;
+  }
+  .hero-underline {
+    stroke-dasharray: 1;
+    animation: gf-stroke 700ms var(--ease-in-out-strong) var(--d, 600ms) backwards;
+  }
+
+  /* The rest of the first screen follows the headline in. */
+  .hero-in {
+    animation: gf-arrive 700ms var(--ease-out-strong) backwards;
+  }
+  .hero-in-2 { animation-delay: 420ms; }
+  .hero-in-3 { animation-delay: 520ms; }
+  .hero-in-4 { animation-delay: 620ms; }
+  .hero-in-5 { animation-delay: 900ms; }
+  .hero-in-globe {
+    animation-name: gf-globe-in;
+    animation-duration: 1200ms;
+    animation-delay: 150ms;
+  }
+
+  /* The halo behind the globe breathes on a long loop. */
+  .hero-glow {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklch, var(--primary) 24%, transparent),
+      transparent
+    );
+    animation: gf-breathe 6s ease-in-out infinite alternate;
+  }
+
+  /* As the hero scrolls away, the globe sinks and dims: a scroll-driven
+     animation on the panel's scroll, off the main thread. Unsupported
+     browsers keep it still. */
+  @supports (animation-timeline: view()) {
+    .hero-scroll {
+      animation: gf-scroll-away linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+  }
+
+  /* A focused organization's name, pinned on the globe. */
+  .globe-tag {
+    animation: gf-rise var(--duration-menu) var(--ease-out-strong) backwards;
+  }
+
+  /* "I want to ___": the underline brightens and the arrow nudges on hover;
+     the active dot fills over the time a phrase is shown, and its end is
+     what advances the phrase (intent-roller.tsx). */
+  .intent-line {
+    background-color: color-mix(in oklch, var(--primary) 40%, transparent);
+    transition: background-color var(--duration-press) ease;
+  }
+  .intent .lift-arrow {
+    transition: transform var(--duration-menu) var(--ease-out-strong);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .intent:hover .intent-line {
+      background-color: var(--primary);
+    }
+    .intent:hover .lift-arrow {
+      transform: translateX(4px);
+    }
+  }
+  .intent-timer {
+    transform-origin: 0 50%;
+  }
+  .intent-timer.is-running {
+    animation: gf-grow-x 3600ms linear both;
+  }
+  .intent-timer.is-paused {
+    animation-play-state: paused;
+  }
+
+  /* The roster strip: two copies of one row, translated by half, so the
+     loop has no seam. Edges fade out rather than cut. Paused while it is
+     being pointed at or has focus. */
+  .marquee {
+    overflow: hidden;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      var(--foreground) 6%,
+      var(--foreground) 94%,
+      transparent
+    );
+  }
+  .marquee-track {
+    animation: gf-marquee var(--marquee-duration, 120s) linear infinite;
+  }
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* Destinations: a light that follows the pointer across the grid (the
+     position is written by destinations.tsx), and the featured cards' large
+     icon turning slightly toward you. */
+  .spot {
+    isolation: isolate;
+  }
+  .spot::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      18rem circle at var(--spot-x, 50%) var(--spot-y, 50%),
+      color-mix(in oklch, var(--primary) 14%, transparent),
+      transparent 70%
+    );
+    transition: opacity 300ms ease;
+  }
+  .spot-art {
+    transition: transform 600ms var(--ease-out-strong);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .spot-grid:hover .spot::before {
+      opacity: 1;
+    }
+    .spot:hover .spot-art {
+      transform: rotate(-8deg) scale(1.06);
+    }
+  }
+
+  /* "How Bumicerts works": the number of the step being read fills and
+     rings, passed ones stay filled, and the current title steps up to full
+     foreground. Colour only for the text, so contrast holds at every state. */
+  .journey-num {
+    background: var(--status-ok-bg);
+    color: var(--status-ok);
+    outline: 4px solid transparent;
+    transition:
+      background-color var(--duration-menu) ease,
+      color var(--duration-menu) ease,
+      outline-color var(--duration-menu) ease,
+      transform var(--duration-menu) var(--ease-out-strong);
+  }
+  .journey-step[data-state="done"] .journey-num,
+  .journey-step[data-state="current"] .journey-num {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  .journey-step[data-state="current"] .journey-num {
+    outline-color: color-mix(in oklch, var(--primary) 22%, transparent);
+    transform: scale(1.08);
+  }
+  .journey-body > h3 {
+    color: var(--muted-foreground);
+    transition: color 300ms ease;
+  }
+  .journey-step[data-state="current"] .journey-body > h3 {
+    color: var(--foreground);
+  }
+
+  /* The scene: a faint dot grid, the pulse along each link line, the glow
+     of a Project in use, and the recording's waveform. */
+  .scene {
+    background-image: radial-gradient(
+      circle at center,
+      color-mix(in oklch, var(--foreground) 9%, transparent) 1px,
+      transparent 1.5px
+    );
+    background-size: 1rem 1rem;
+  }
+  .scene-flow {
+    stroke-dasharray: 0.06 0.94;
+    animation: gf-stroke 1800ms linear calc(var(--i, 0) * 300ms) infinite;
+  }
+  .scene-halo {
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklch, var(--primary) 30%, transparent),
+      transparent
+    );
+    transform: scale(1.5);
+  }
+  .wave > span {
+    transform: scaleY(0.3);
+  }
+  .wave.is-on > span {
+    animation: gf-wave 700ms ease-in-out infinite alternate;
+  }
+  .wave > span:nth-child(2) { animation-delay: -200ms; }
+  .wave > span:nth-child(3) { animation-delay: -450ms; }
+  .wave > span:nth-child(4) { animation-delay: -100ms; }
+  .wave > span:nth-child(5) { animation-delay: -300ms; }
+
+  /* The closing card's aurora: three soft pools on long, out-of-step loops. */
+  .aurora > span {
+    position: absolute;
+    width: 60%;
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in oklch, var(--aurora) 26%, transparent),
+      transparent
+    );
+    will-change: transform;
+  }
+  .aurora > span:nth-child(1) {
+    --aurora: var(--primary);
+    inset-inline-end: -15%;
+    top: -40%;
+    animation: gf-drift-1 18s ease-in-out infinite alternate;
+  }
+  .aurora > span:nth-child(2) {
+    --aurora: var(--chart-3);
+    inset-inline-end: 10%;
+    bottom: -50%;
+    animation: gf-drift-2 23s ease-in-out infinite alternate;
+  }
+  .aurora > span:nth-child(3) {
+    --aurora: var(--chart-5);
+    inset-inline-start: 25%;
+    top: 20%;
+    width: 45%;
+    animation: gf-drift-3 29s ease-in-out infinite alternate;
+  }
+}
+
 /* Overlays. Unlayered on purpose: tw-animate's utilities sit in a later
    layer than `components`, so only an unlayered rule can retune them. The kit draws them with tw-animate; these retune its duration
    and curve to the system's tokens rather than editing every class list.
@@ -912,5 +1237,22 @@ html[data-instant] .page-enter {
   }
   to {
     clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 100%) var(--vt-y, 0%));
+  }
+}
+
+/* Reduced motion on the welcome page: the roster strip stops and scrolls by
+   hand instead, the globe no longer sinks as the hero scrolls away, and the
+   intent line's timer does not run, so it never turns on its own. The
+   rest is covered by the global rule above (loops settle on their end
+   state). */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    mask-image: none;
+  }
+  .marquee-track,
+  .hero-scroll,
+  .intent-timer.is-running {
+    animation: none !important;
   }
 }

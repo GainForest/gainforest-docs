@@ -1,66 +1,53 @@
 ---
 title: "Welcome"
+description: "Open-source tools for the people protecting and restoring nature, and how to use Bumicerts on GainForest.app."
 icon: hand-wave
+layout: home
 ---
 
+<Hero
+  title="Open tools for the people protecting nature"
+  accent="nature"
+  intents={[
+    { label: "create a Project", href: "/bumicerts/what-is-a-project" },
+    { label: "upload evidence", href: "/evidence" },
+    { label: "learn with Tainá", href: "/taina" },
+    { label: "join the BioBlitz", href: "/opportunities/weekly-bioblitz-challenge" },
+    { label: "set up an organization", href: "/organizations" },
+    { label: "support a Project", href: "/funders/supporting-bumicerts-projects" },
+  ]}
+>
 GainForest builds open-source tools for communities, nature stewards, researchers, and local organizations protecting and restoring nature.
 
-This Support guide focuses on **Bumicerts on GainForest.app** — the Project and evidence tools that help users document environmental work, upload evidence, and turn it into lasting impact records.
+This guide is about **Bumicerts on GainForest.app**: the Project and evidence tools that help you document environmental work and turn it into lasting impact records.
+</Hero>
 
-<ButtonLink href="https://gainforest.app" variant="primary">Open GainForest.app</ButtonLink>
+<Destinations id="what-do-you-want-to-do" title="What do you want to do?" description="Pick a starting point. Every page links onward from there.">
+  <Destination featured title="Create a Project" href="/bumicerts/what-is-a-project" icon="folder-tree">See how Projects organize your story, goals, updates, and evidence. If you are unsure where to begin, begin here.</Destination>
+  <Destination title="Upload evidence" href="/evidence" icon="upload">Add observations, use Tainá, request batch uploads, or work with AudioMoth.</Destination>
+  <Destination title="Understand Bumicerts" href="/bumicerts/what-is-bumicerts" icon="seedling">Learn what Bumicerts is and who it is for.</Destination>
+  <Destination title="Explore the Globe" href="/bumicerts/globe" icon="earth-americas">Organizations, Project sites, land cover, and tree data on a 3D Earth.</Destination>
+  <Destination title="Set up an organization" href="/organizations" icon="building-flag">Create an organization, invite members, and manage permissions.</Destination>
+  <Destination title="Use Tainá" href="/taina" icon="robot">The Telegram field companion for learning, species ID, and observations.</Destination>
+  <Destination title="Join opportunities" href="/opportunities" icon="sparkles">The Weekly BioBlitz Challenge, Rewilding the Web Grant, and more.</Destination>
+  <Destination title="Support a Project" href="/funders/supporting-bumicerts-projects" icon="hand-holding-heart">Understand Project evidence and support Bumicerts stewards.</Destination>
+  <Destination title="Support GainForest" href="/support" icon="heart">Donate to GainForest’s broader nonprofit and open-source work.</Destination>
+  <Destination featured title="Learn about GainForest" href="/about-gainforest" icon="tree">The organization behind GainForest.app and Bumicerts: its mission, and the communities it works with.</Destination>
+</Destinations>
 
-<Callout type="success">
-**New here?** Start with [About GainForest](/about-gainforest), then continue to [What is Bumicerts?](/bumicerts/what-is-bumicerts) and [What is a Project?](/bumicerts/what-is-a-project).
-</Callout>
+<Journey id="how-bumicerts-works" title="How Bumicerts works" description="Bumicerts turns environmental work into evidence-backed Projects in five steps.">
+  <JourneyStep title="Create a Project">Set up a page for your stewardship, restoration, monitoring, or community work.</JourneyStep>
+  <JourneyStep title="Upload evidence">Add observations, photos, files, datasets, or AudioMoth recordings.</JourneyStep>
+  <JourneyStep title="Link evidence to your Project">Connect uploads so others can understand what happened and why it matters.</JourneyStep>
+  <JourneyStep title="Share updates">Post progress over time to build a public record of your work.</JourneyStep>
+  <JourneyStep title="Use your Project">Put it to work for reporting, visibility, grants, and funding conversations.</JourneyStep>
+</Journey>
 
-## What do you want to do?
+<Live id="happening-now" title="Happening now" description="This week’s BioBlitz round, and the latest sounds stewards have recorded with AudioMoth sensors.">
+  <BioblitzCountdown />
+  <SoundSample />
+</Live>
 
-<Cards>
-  <Card title="Learn about GainForest" href="/about-gainforest" icon="tree">Understand the organization behind GainForest.app and Bumicerts.</Card>
-  <Card title="Understand Bumicerts" href="/bumicerts/what-is-bumicerts" icon="seedling">Learn what Bumicerts is and who it is for.</Card>
-  <Card title="Create a Project" href="/bumicerts/what-is-a-project" icon="folder-tree">See how Projects organize your story, goals, updates, and evidence.</Card>
-  <Card title="Explore the Globe" href="/bumicerts/globe" icon="earth-americas">View organizations, Project sites, land cover, tree data, and data layers on a 3D Earth.</Card>
-  <Card title="Upload evidence" href="/evidence" icon="upload">Add observations, use Tainá, request batch uploads, or work with AudioMoth.</Card>
-  <Card title="Set up an organization" href="/organizations" icon="building-flag">Create an organization, invite members, and manage permissions.</Card>
-  <Card title="Use Tainá" href="/taina" icon="robot">The Telegram field companion for learning, species ID, and observations.</Card>
-  <Card title="Join opportunities" href="/opportunities" icon="sparkles">The Weekly BioBlitz Challenge, Rewilding the Web Grant, and more.</Card>
-  <Card title="Support a Project" href="/funders/supporting-bumicerts-projects" icon="hand-holding-heart">Understand Project evidence and support Bumicerts stewards.</Card>
-  <Card title="Support GainForest" href="/support" icon="heart">Donate to GainForest’s broader nonprofit and open-source work.</Card>
-</Cards>
-
-## How Bumicerts works
-
-Bumicerts turns environmental work into evidence-backed Projects in five steps.
-
-<Steps>
-<Step>
-### Create a Project
-Set up a page for your stewardship, restoration, monitoring, or community work.
-</Step>
-
-<Step>
-### Upload evidence
-Add observations, photos, files, datasets, or AudioMoth recordings.
-</Step>
-
-<Step>
-### Link evidence to your Project
-Connect uploads so others can understand what happened and why it matters.
-</Step>
-
-<Step>
-### Share updates
-Post progress over time to build a public record of your work.
-</Step>
-
-<Step>
-### Use your Project
-Put it to work for reporting, visibility, grants, and funding conversations.
-</Step>
-</Steps>
-
-## Start with a Project
-
-A **Project** is the main unit on Bumicerts — it brings together the people, place, story, updates, and evidence behind environmental work. If you are unsure where to begin, begin here.
-
-<PageLink href="/bumicerts/what-is-a-project" />
+<Finale id="start-with-a-project" title="Start with a Project" href="/bumicerts/what-is-a-project" action="What is a Project?">
+A **Project** is the main unit on Bumicerts. It brings together the people, place, story, updates, and evidence behind environmental work. If you are unsure where to begin, begin here.
+</Finale>

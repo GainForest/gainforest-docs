@@ -24,7 +24,8 @@ moves something.
 
 **Fast orientation.** `content/docs/` is the content, `src/lib/source.tsx` the
 pipeline, `src/app/[[...slug]]/page.tsx` the page, `src/components/mdx/` the
-authoring API, `src/app/globals.css` the tokens and prose styles.
+authoring API, `src/components/home/` the welcome page, `src/app/globals.css`
+the tokens and prose styles.
 
 ---
 
@@ -189,6 +190,21 @@ comes from a file there, and the build fails rather than guessing.
 | `<BioblitzCountdown />` | The live round, from `src/lib/bioblitz.ts` (a port of GainForest.app's schedule). |
 | `<DonatePicker />` | Amounts compared only to figures stated elsewhere in the docs. |
 
+**The welcome page** (`content/docs/index.mdx`, frontmatter `layout: home`)
+renders full width with no title block or outline, and is built from
+components in `src/components/home/`. They are in the MDX map like the rest,
+but only make sense on that page:
+
+| Component | Use |
+| --- | --- |
+| `<Hero title accent intents>` | The headline (word-by-word reveal, `accent` underlined), the children as the lead, the "I want to ___" line (`intents` is `{ label, href }[]`), and the live globe with a strip of real organization names that steers it. |
+| `<Destinations id title description>` + `<Destination title href icon featured>` | The bento of starting points. `featured` spans two columns. |
+| `<Journey id title description>` + `<JourneyStep title>` | A scroll story: steps in a column beside a pinned scene that builds a Project one step at a time. The scene is drawn for exactly the five steps it has. |
+| `<Live id title description>` | Two live blocks side by side (`BioblitzCountdown`, `SoundSample`). |
+| `<Finale id title href action>` | The closing call to action. |
+
+`layout` is parsed in `src/lib/source.tsx`; any other page leaves it unset.
+
 Site-wide, with no authoring needed: glossary terms (first use per page, from
 `src/lib/glossary.ts` via `remark-glossary`), copy-link on headings, image
 zoom on every `Figure`, read time and git "updated" date, "Was this helpful?"
@@ -227,7 +243,9 @@ It is kept for reference and re-running is destructive to hand edits in
   state, an effect, an event handler, or a browser API. Push the boundary as
   deep as the leaf that actually needs it, never to the top of a page.
 - **Colocate by role.** `src/components/ui/` is the kit, `src/components/docs/`
-  is the shell, `src/components/mdx/` is what pages may render.
+  is the shell, `src/components/mdx/` is what pages may render,
+  `src/components/interactive/` the live and stateful blocks, and
+  `src/components/home/` the welcome page's sections.
 - **Props are explicit and typed.** No spreading through more than one layer.
 - **`not-found.tsx` is designed**, and names the recovery (search, or the
   welcome page). The error boundary prop is `retry` (Next 16.3+), never `reset`.

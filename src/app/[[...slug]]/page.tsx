@@ -24,6 +24,20 @@ export default async function DocPage(props: PageProps<"/[[...slug]]">) {
   const minutes = Math.max(1, Math.round(words / 200));
   const updated = page.data.lastModified;
 
+  // The welcome page draws its own sections full width: no title block,
+  // outline, or neighbours. Its content is still one MDX file.
+  if (page.data.layout === "home") {
+    return (
+      <div className="mx-auto w-full max-w-6xl px-4 pt-8 pb-16 md:px-8 md:pt-12 xl:px-12">
+        <div className="flex flex-col gap-24 md:gap-32">
+          <MDX components={mdxComponents} />
+        </div>
+        <Feedback page={page.url} />
+        <PageKeys prev={null} next={next?.url ?? null} headings={[]} />
+      </div>
+    );
+  }
+
   return (
     <div className="mx-auto flex w-full max-w-6xl px-4 xl:gap-12 pt-8 pb-16 md:px-8 md:pt-12 xl:px-12">
       <article className="min-w-0 flex-1">

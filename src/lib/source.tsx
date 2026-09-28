@@ -20,6 +20,9 @@ const docs = defineDocs({
     schema: pageSchema.extend({
       /** A shorter label for the sidebar when the page title is long. */
       sidebarTitle: z.string().optional(),
+      /** `home` renders the page full width, with no title block or outline:
+       *  the welcome page, whose components draw their own sections. */
+      layout: z.enum(["docs", "home"]).default("docs"),
     }),
     postprocess: { includeProcessedMarkdown: true },
     // From git. Pages with no commit yet have no date, and the page says so.

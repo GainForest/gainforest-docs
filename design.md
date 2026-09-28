@@ -314,6 +314,15 @@ Everything that moves, and why. Values are tokens; see `globals.css` *Motion*.
 | Globe | Slow auto-turn, pulsing rings on organizations | Delight | globe.gl; still under reduced motion |
 | Figure zoom | Dialog grows out of the image's position | Spatial consistency | `transform-origin` at the thumbnail, enter scale 0.55 |
 | Keyboard page change | No entrance | Speed | `data-instant` on `<html>` |
+| Welcome headline | Words rise out of a blur 70ms apart; the accent word's underline draws itself after | Delight, rare | CSS keyframes with `backwards` fill, 800ms, `--ease-out-strong`; runs before hydration |
+| Welcome first screen | Lead, intent line, actions, and the roster strip follow the headline; the globe comes into focus from 0.92 | Prevent a jarring swap | CSS keyframes, 700ms, staggered 100ms |
+| Welcome globe | Halo breathes; leans toward the pointer; sinks and dims as the hero scrolls away | Delight | CSS loop; Motion spring (mouse only, off under reduced motion); scroll-driven `view()` timeline |
+| Roster strip | Real organization names drift past; pointing at one flies the globe to it and pins its name | Explanation | CSS `linear` loop, paused on hover and focus, hand-scrolled under reduced motion; globe.gl `pointOfView`, 1100ms |
+| "I want to ___" | The phrase rolls up with a blur; the active dot fills over the time it is shown | State indication | Motion, 450ms `EASE_OUT`; the dot is a CSS `linear` fill whose end advances the phrase, so hover or focus pauses both. Nothing turns on its own under reduced motion |
+| Section titles, destinations | Rise 16px out of a 6px blur, once, as they enter view; the grid cascades 50ms apart | Pace a long page | Motion `whileInView`, `blurUp`, 600ms |
+| Destinations | A light follows the pointer across the grid; featured cards' large icon turns | Feedback | Custom properties written to each card; radial luminance, never a border |
+| How Bumicerts works | A pinned scene builds a Project as the steps scroll past: card, evidence, link lines with travelling pulses, updates, uses | Explanation | Motion springs keyed to the step (`SCENE_SPRING`), so scrolling back reverses from where it is; `pathLength` draws |
+| Closing card | Scales up from 0.96 once; an aurora drifts behind it | Delight, rare | Motion; three CSS loops of 18 to 29s |
 
 Chips are `CHIP` in `src/lib/chip.ts`: muted pill, brand green when on. Inline
 controls inside running text use the kit's `InlineTrigger`, the one primitive

@@ -13,6 +13,16 @@ import { GLOSSARY } from "./glossary";
  */
 const SKIP = new Set(["heading", "link", "linkReference", "inlineCode", "code", "definition"]);
 
+/** Components whose body is itself a link when given an `href`: a term inside
+ *  one would put a button inside an anchor. */
+const LINKING = new Set(["Card", "Destination", "ButtonLink"]);
+
+function isLinkingComponent(node: RootContent): boolean {
+  if (node.type !== "mdxJsxFlowElement" && node.type !== "mdxJsxTextElement") return false;
+  if (!node.name || !LINKING.has(node.name)) return false;
+  return node.attributes.some((a) => a.type === "mdxJsxAttribute" && a.name === "href");
+}
+
 type Matcher = { id: string; re: RegExp };
 
 function escape(s: string): string {
@@ -63,6 +73,7 @@ export function remarkGlossary() {
         const child = parent.children[i];
         if (!child || SKIP.has(child.type)) continue;
         if (child.type === "mdxJsxTextElement" && child.name === "Term") continue;
+        if (isLinkingComponent(child)) continue;
         if (child.type === "text") {
           const parts = splitText(child);
           if (parts) {

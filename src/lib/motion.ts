@@ -85,3 +85,27 @@ export const transition = {
  * No bounce: it is navigation, not play.
  */
 export const NAV_SPRING: Transition = { type: "spring", duration: 0.38, bounce: 0 };
+
+/**
+ * The welcome page. It is seen once a visit at most, so it sits at the
+ * "rare" end of the frequency table and is allowed to be expressive: blocks
+ * rise and come into focus as they enter view, once, and the explainer scene
+ * moves on a spring so a reader scrolling back and forth never sees a
+ * transition restart from zero.
+ */
+export const blurUp: Variants = {
+  hidden: { opacity: 0, transform: "translateY(16px)", filter: "blur(6px)" },
+  visible: { opacity: 1, transform: "translateY(0px)", filter: "blur(0px)" },
+};
+
+/** A block arriving in view. Longer than UI motion: it explains, it does not respond. */
+export const REVEAL: Transition = { duration: 0.6, ease: EASE_OUT };
+
+/** The explainer scene's pieces. A touch of bounce: they are placed, not slid. */
+export const SCENE_SPRING: Transition = { type: "spring", duration: 0.6, bounce: 0.15 };
+
+/** A line being drawn from one thing to another: on-screen movement, so in-out. */
+export const DRAW: Transition = { duration: 0.7, ease: EASE_IN_OUT };
+
+/** Words in the intent line trade places. */
+export const ROLL: Transition = { duration: 0.45, ease: EASE_OUT };
