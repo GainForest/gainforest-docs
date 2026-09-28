@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# GainForest Docs
 
-## Getting Started
+The help site at docs.gainforest.earth, replacing GitBook. Same design system
+as `gainforest-admin`.
 
-First, run the development server:
+| | |
+| --- | --- |
+| Framework | Next.js 16 (App Router, Turbopack), React 19, fully static |
+| Content | MDX in `content/docs`, via `fumadocs-core` + `fumadocs-mdx` (headless) |
+| Styling | Tailwind CSS v4, tokens in `src/app/globals.css` |
+| Components | shadcn/ui `radix-nova`, Radix primitives, retokenised |
+| Search | Static Orama index, ⌘K palette |
+| Icons / fonts | Lucide, Geist Sans / Geist Mono |
+
+## Running it
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev          # http://localhost:4040
+pnpm lint && pnpm typecheck && pnpm build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Writing a page
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Add `content/docs/<path>.mdx` with `title`, `description`, and `icon` in the
+frontmatter, then list it in that folder's `meta.json`. Components available in
+MDX: `Callout`, `Cards` + `Card`, `PageLink`, `Embed`, `Figure`, `Steps` +
+`Step`, `ButtonLink`, `Icon`. `AGENTS.md` §3 has the rules.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Environment
 
-## Learn More
+| Variable | Needed for |
+| --- | --- |
+| `FEEDBACK_WEBHOOK_URL` | Optional. Where "Was this helpful?" votes are posted (Slack or Discord style JSON). Without it they go to the function log. |
+| `VERCEL_DEEP_CLONE=true` | On Vercel, so git history is available for "Updated" dates. |
 
-To learn more about Next.js, take a look at the following resources:
+## Layout
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+content/docs/          pages and meta.json (sidebar order + groups)
+public/assets/         images referenced by pages
+src/lib/source.tsx     the content pipeline (fumadocs loader)
+src/lib/redirects.json old GitBook URLs -> new URLs
+src/app/[[...slug]]/   the page route
+src/app/api/search/    static search index
+src/app/llms*          llms.txt, llms-full.txt, per-page markdown
+src/components/ui/     kit (owned shadcn source)
+src/components/docs/   shell: sidebar, header, search, TOC, page actions
+src/components/mdx/    everything a page can render
+scripts/               migrate-gitbook.py (one-shot import), retokenise-ui.mjs
+```

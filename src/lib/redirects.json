@@ -1,0 +1,152 @@
+[
+  {
+    "source": "/about-gainforest/about-gainforest",
+    "destination": "/about-gainforest",
+    "permanent": true
+  },
+  {
+    "source": "/about-gainforest/conservation-data-income",
+    "destination": "/conservation-data-income",
+    "permanent": true
+  },
+  {
+    "source": "/gainforest.app-and-bumicerts/what-is-bumicerts",
+    "destination": "/bumicerts/what-is-bumicerts",
+    "permanent": true
+  },
+  {
+    "source": "/gainforest.app-and-bumicerts/what-is-a-project",
+    "destination": "/bumicerts/what-is-a-project",
+    "permanent": true
+  },
+  {
+    "source": "/gainforest.app-and-bumicerts/globe",
+    "destination": "/bumicerts/globe",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/for-organizations",
+    "destination": "/organizations",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/for-organizations/creating-your-organization",
+    "destination": "/organizations/creating-your-organization",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/for-organizations/user-permissions",
+    "destination": "/organizations/user-permissions",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/for-organizations/gainforest-data-council",
+    "destination": "/organizations/data-council",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview",
+    "destination": "/evidence",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview/biodiversity-observations",
+    "destination": "/evidence/biodiversity-observations",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview/taina-for-observations",
+    "destination": "/evidence/taina-for-observations",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview/batch-uploads",
+    "destination": "/evidence/batch-uploads",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview/audiomoth",
+    "destination": "/evidence/bioacoustic-sensors",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview/linking-evidence-to-projects",
+    "destination": "/evidence/linking-evidence-to-projects",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/taina",
+    "destination": "/taina",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview-1",
+    "destination": "/opportunities",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview-1/weekly-bioblitz-challenge",
+    "destination": "/opportunities/weekly-bioblitz-challenge",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview-1/rewilding-the-web-grant",
+    "destination": "/opportunities/rewilding-the-web-grant",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview-1/rewilding-the-web-grant/rewilding-project-page-guide",
+    "destination": "/opportunities/rewilding-the-web-grant/project-page-guide",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/overview-1/rewilding-the-web-grant/rewilding-grant-conditions",
+    "destination": "/opportunities/rewilding-the-web-grant/grant-conditions",
+    "permanent": true
+  },
+  {
+    "source": "/for-nature-stewards/ma-earth",
+    "destination": "/ma-earth",
+    "permanent": true
+  },
+  {
+    "source": "/for-funders-and-supporters/supporting-bumicerts-projects",
+    "destination": "/funders/supporting-bumicerts-projects",
+    "permanent": true
+  },
+  {
+    "source": "/for-funders-and-supporters/reviewing-project-evidence",
+    "destination": "/funders/reviewing-project-evidence",
+    "permanent": true
+  },
+  {
+    "source": "/support-gainforest/support-gainforest",
+    "destination": "/support",
+    "permanent": true
+  },
+  {
+    "source": "/support-gainforest/support-gainforest/giveth",
+    "destination": "/support/giveth",
+    "permanent": true
+  },
+  {
+    "source": "/support-gainforest/support-gainforest/donorbox",
+    "destination": "/support/donorbox",
+    "permanent": true
+  },
+  {
+    "source": "/community-and-impact/monthly-community-calls",
+    "destination": "/community/monthly-community-calls",
+    "permanent": true
+  },
+  {
+    "source": "/community-and-impact/annual-impact-reports",
+    "destination": "/community/annual-impact-reports",
+    "permanent": true
+  },
+  {
+    "source": "/community-and-impact/press-and-recognition",
+    "destination": "/community/press-and-recognition",
+    "permanent": true
+  }
+]

@@ -1,0 +1,272 @@
+[
+  {
+    "id": "2026-06",
+    "date": "2026-06",
+    "label": "June 2026",
+    "title": "Bumicerts Launch",
+    "video": "https://youtu.be/EN1G4Y78dc0",
+    "summary": "After months of building with our community, Bumicerts by GainForest is officially launched 🌱 Featuring a live demo and a special talk by Angelina Serwaa from the Wildlife Conservation Society.",
+    "topics": [
+      "platform"
+    ]
+  },
+  {
+    "id": "2026-05",
+    "date": "2026-05",
+    "label": "May 2026",
+    "title": "Blockchain Nature Conservation: A Researcher's Deep Dive",
+    "video": null,
+    "summary": "Andrea Stuit takes us on a researcher's deep dive into the blockchain nature conservation space. What are web3 conservation projects really trying to achieve, and what does the evidence say? A great one for anyone who wants to see the bigger picture. This session was not recorded because we did not have permission from the speaker to publish the recording.",
+    "topics": [
+      "web3"
+    ]
+  },
+  {
+    "id": "2026-04",
+    "date": "2026-04",
+    "label": "April 2026",
+    "title": "How to Upload Your Tree Data and Prove Your Impact on Bumicerts",
+    "video": "https://www.youtube.com/watch?v=PY6awoQxcxI",
+    "summary": "Introducing Bumicerts to our community for the first time 🌳 This special session marked the first beta tester wave — with live demos on KoboToolbox data upload, org profile setup, and real-world tips for collecting tree data from the field.",
+    "topics": [
+      "trees",
+      "platform"
+    ]
+  },
+  {
+    "id": "2026-02",
+    "date": "2026-02",
+    "label": "February/March 2026",
+    "title": "Tree Data: Strengthening MRV and Ecological Claims",
+    "video": "https://www.youtube.com/watch?v=xCFxO4w2lXI",
+    "summary": "In our February community call, Djimo Serodio from Silvi walks us through Silvi's tools and MRV strategies for tree data — and what stronger ecological claims look like in practice.",
+    "topics": [
+      "mrv",
+      "trees"
+    ]
+  },
+  {
+    "id": "2026-01",
+    "date": "2026-01",
+    "label": "January 2026",
+    "title": "Introduction to Monitoring, Reporting, and Verification",
+    "video": "https://www.youtube.com/watch?v=91eJA1Fmpi4",
+    "summary": "In our January 2026 GainForest Community Call, we’re joined by Angelina Serwaa from Yale University for a practical introduction to MRV for nature projects. We explore different MRV approaches and discuss real questions from community partners, including tech costs and capacity building for implementers.",
+    "topics": [
+      "mrv"
+    ]
+  },
+  {
+    "id": "2025-12",
+    "date": "2025-12",
+    "label": "December 2025",
+    "title": "Regenerative Agroforestry & Public Goods in Practice",
+    "video": "https://youtu.be/7zBMdKsbFHg",
+    "summary": "In this session, we heard peer-sharing stories from AgroforestDAO on Web3-enabled regenerative agroforestry, and Green Sofa Taiwan on their dashboard mapping local public-goods hypercerts. Satyam from GainForest also shared updates on Cert v2 and what’s coming next.",
+    "topics": [
+      "web3",
+      "restoration"
+    ]
+  },
+  {
+    "id": "2025-11",
+    "date": "2025-11",
+    "label": "November 2025",
+    "title": "Web3 Insights & Spix’s Macaw Conservation",
+    "video": "https://youtu.be/7Omx4BGrOCs",
+    "summary": "This session highlighted two stories of stewardship and community resilience. Maxi Fechen from Fork Forest shared how digital communities, Web3 gatherings, and the Regen House Residency helped nature stewards connect, collaborate, and strengthen community resilience. Coopera Flora Azul then presented their work in Brazil protecting the Spix’s Macaw through education and alternative livelihood programs",
+    "topics": [
+      "web3"
+    ]
+  },
+  {
+    "id": "2025-10",
+    "date": "2025-10",
+    "label": "October 2025",
+    "title": "Agroforestry in Central Kalimantan and Polly AI for UNFCCC Climate Negotiations",
+    "video": "https://www.youtube.com/watch?v=20Jhk2Qpafk&list=PLsXXSLlE1HnZZvGsEQ8RXYYyjyzW8UoZv",
+    "summary": "In this session, the Pandu Alam Lestari Foundation shares their agroforestry work in Central Kalimantan, restoring ecosystems and supporting community livelihoods. Diego Rivera and introduces Polly, an AI tool designed to help UNFCCC negotiators access and navigate climate document.",
+    "topics": [
+      "ai",
+      "restoration"
+    ]
+  },
+  {
+    "id": "2025-09",
+    "date": "2025-09",
+    "label": "September 2025",
+    "title": "Communities as Stewards: Planting Hope, Restoring Earth",
+    "video": "https://www.loom.com/share/3afedef10d714c9b8bedfa404015d4b1?sid=0fceae31-cdbc-41c5-85a0-6285ffe97be2",
+    "summary": "In this call, we connected with inspiring stewards from around the world. Together4Trees Kenya shared how they nurture environmental awareness through children’s tree planting, while Agape Hand and Reforest Trees from Peru shared their community-led restoration and agroforestry journey and how they’re exploring Web3 for nature impact.",
+    "topics": [
+      "trees",
+      "web3",
+      "restoration"
+    ]
+  },
+  {
+    "id": "2025-08",
+    "date": "2025-08",
+    "label": "August 2025",
+    "title": "Restoring Lands and Giving Voice to Nature",
+    "video": "https://www.loom.com/share/0235a540af2549e994077fdb79fb7d60?sid=8f6d8960-b10b-4ac8-aa5f-fc20328356ab",
+    "summary": "In our community call we invited Sharrif Injamu from ACEF who shared about communities in Kenya restoring mangroves, protecting forests, and planting trees 🌱 We also invited Danilo Vaz from Rio Sagrado AI-vatar who shared an art installation that gives voice to a river under threat",
+    "topics": [
+      "trees",
+      "ai",
+      "restoration"
+    ]
+  },
+  {
+    "id": "2025-07",
+    "date": "2025-07",
+    "label": "July 2025",
+    "title": "Young Stewards Leading Regeneration",
+    "video": "https://www.loom.com/share/e209ec80eedc4d4d9d66c7437ecb0e5f?sid=d30289e4-2d22-4b94-9148-11af7172b8b9",
+    "summary": "In this session, Simon Eze (Project OSISI) and Esayu Daniel (YLEC) shared their respective intiatives involving young people in Nigeria and Uganda",
+    "topics": [
+      "restoration"
+    ]
+  },
+  {
+    "id": "2025-06",
+    "date": "2025-06",
+    "label": "June 2025",
+    "title": "How Communities Care, Restore, and Connect",
+    "video": "https://youtu.be/u0Id4e-UX_U",
+    "summary": "In this session, Maksym Zalevskyi (GEN Ukraine) and Ithan Sol (Project MOJA) discuss how their communities care for nature and one another through local restoration efforts. We also explore DeepGov, an AI-powered ‘politician’ designed to help evaluate projects and guide resource allocation — presented by Diego Rivera from GainForest.",
+    "topics": [
+      "web3",
+      "ai",
+      "restoration"
+    ]
+  },
+  {
+    "id": "2025-05",
+    "date": "2025-05",
+    "label": "May 2025",
+    "title": "Showcasing Your Work: A Beginner’s Guide to Impact Storytelling",
+    "video": "https://www.loom.com/share/d41b09a01c284cd380076855f77d6c04?sid=01a6e6be-258b-4493-8472-39c959e49733",
+    "summary": "In this session, Frank Hu from GreenSofa Taiwan shares how Nature Stewards can translate knowledge into action, build community, and tell powerful stories—especially for those starting out or exploring the Web3 space.",
+    "topics": [
+      "web3"
+    ]
+  },
+  {
+    "id": "2025-04",
+    "date": "2025-04",
+    "label": "April 2025",
+    "title": "Stories of Impact Through Cert",
+    "video": "https://www.loom.com/share/a3865d7d665f4d13bb9555fa0b674c1d?sid=dc41fe26-dae0-4e42-b6bc-d9bfaa669c1a",
+    "summary": "In this community call, we invited four inspiring speakers from WOVOKA Philippines, Project Mocha in Kenya, Green Ambassadors Club in Uganda and GreenPill Taiwan to share the environmental impact they reported in their Cert, an environmental hypercert used to document contributions.",
+    "topics": [
+      "web3"
+    ]
+  },
+  {
+    "id": "2025-03",
+    "date": "2025-03",
+    "label": "March 2025",
+    "title": "Peer Sharing on Restoration in Tanzania",
+    "video": "https://www.loom.com/share/21a811f6960141baaebb2a9666ac438c?sid=3a1d3f47-54d9-4d8d-9624-300f2f05fea1",
+    "summary": "We invited our Tanzanian community partners, Blue Carbon Tanzania and Bula Garden Tanzania, to share their impactful restoration work. One focuses on restoring mangrove ecosystems, while the other is planting fruit trees to support local communities. Learn about their challenges, successes, and how these efforts contribute to environmental regeneration.",
+    "topics": [
+      "trees",
+      "restoration"
+    ]
+  },
+  {
+    "id": "2025-02",
+    "date": "2025-02",
+    "label": "February 2025",
+    "title": "Peer Sharing on Agroforestry",
+    "video": "https://www.loom.com/share/a02c60d7407f411f9776010547faca9f?sid=907257b4-eef3-46ff-ad16-abc0930ce08f",
+    "summary": "We invited Bees and Trees, Darukaa Earth, and Climatica Foundation from the GainForest Community Network to share their experiences in agroforestry. They talked about their work, their challenges, and ways to collaborate. This session is meant to support communities to learn from each other and build stronger connections.",
+    "topics": [
+      "trees",
+      "restoration"
+    ]
+  },
+  {
+    "id": "2025-01",
+    "date": "2025-01",
+    "label": "January 2025",
+    "title": "Bioacoustics Data Analysis with Dr. Florencia Sangermano",
+    "video": "https://www.loom.com/share/ddd2c90bfc754946821a65048584d109?sid=1c0f2240-baf9-4fa3-8354-cb725e9f62de",
+    "summary": "We invited Dr. Florencia Sangermano, a bioacoustics expert, to explore how to analyze sound recordings from AudioMoths. Designed for community partners, this talk provides practical methods to turn bioacoustics data into meaningful conservation insights.",
+    "topics": [
+      "bioacoustics"
+    ]
+  },
+  {
+    "id": "2024-12",
+    "date": "2024-12",
+    "label": "December 2024",
+    "title": "Gitcoin Grants: A Sharing on Nature Stewards' Experiences",
+    "video": "https://www.loom.com/share/bd2af4c8f47046eb9dd450bb4450773e?sid=b05e3cd1-750e-4fbb-8cba-65431c967aea",
+    "summary": "We invited SORALO & Bees and Trees Uganda, both part of our network, to share their experience as grantees for Gitcoin Grants 22. They discussed application tips, learning web3 funding (like setting up a Metamask wallet & converting crypto), and how they'll use the funds for regeneration initiatives.",
+    "topics": [
+      "trees",
+      "web3",
+      "restoration",
+      "funding"
+    ]
+  },
+  {
+    "id": "2024-11",
+    "date": "2024-11",
+    "label": "November 2024",
+    "title": "Lessons from Deploying AudioMoths in Sundarban Mangrove Forest, India",
+    "video": "https://www.youtube.com/watch?v=TqfRTmNsnoo",
+    "summary": "We invited Jaya from Darukaa Earth to share their experience deploying AudioMoths in the Sundarban mangrove forest in India. They discussed best practices, challenges faced, and insights gained, providing valuable learnings for other community partners.",
+    "topics": [
+      "bioacoustics",
+      "restoration"
+    ]
+  },
+  {
+    "id": "2024-10",
+    "date": "2024-10",
+    "label": "October 2024",
+    "title": "Introduction to Drone Mapping and Collection",
+    "video": "https://www.youtube.com/watch?v=vsyH_8VHVx0",
+    "summary": "We invited Rodrigo, a local champion from Manaus, Brazil, to share his technical expertise in using drones for conservation. His presentation sparked interest among several community partners, who are now exploring the potential of drones for their own conservation efforts.",
+    "topics": [
+      "drones"
+    ]
+  },
+  {
+    "id": "2024-09",
+    "date": "2024-09",
+    "label": "September 2024",
+    "title": "Bioacoustic Data Collection Using AudioMoth in the Philippines",
+    "video": "https://www.youtube.com/watch?v=HDTtGw_DFNU",
+    "summary": "Oceanus Conservation from the Philippines shared their experience deploying AudioMoths to collect bioacoustic data. This was a skill they learned during our fieldwork with them early September.",
+    "topics": [
+      "bioacoustics"
+    ]
+  },
+  {
+    "id": "2024-07",
+    "date": "2024-07",
+    "label": "July/August 2024",
+    "title": "XPRIZE RainForest Finals Recap",
+    "video": "https://www.loom.com/share/76f9a1651eab49d2914f06eb6746955a?sid=105556f1-61a4-4700-9a7d-3c543bc7cef3",
+    "summary": "Updates on the XPRIZE RainForest Finals, and the GainForest Data Council.",
+    "topics": [
+      "funding"
+    ]
+  },
+  {
+    "id": "2024-06",
+    "date": "2024-06",
+    "label": "June 2024",
+    "title": "New Technologies: AudioMoths and Tainá",
+    "video": "https://www.loom.com/share/68d991bac52c48fca6d585b9008cb019?sid=7c0f98fb-f140-472c-8a33-c23f0d267df1",
+    "summary": "We introduce new algorithms that have been developed at GainForest - Audiomoths and the Circadian Rhythm visualization, InsectSpy, and Taina.",
+    "topics": [
+      "bioacoustics",
+      "ai"
+    ]
+  }
+]

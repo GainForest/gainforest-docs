@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="720" viewBox="0 0 1400 720">
+  <rect width="1400" height="720" fill="#f6f7f4"/>
+  <rect x="140" y="90" width="1120" height="540" rx="38" fill="#fff" stroke="#dae0d6" stroke-width="3"/>
+  <text x="210" y="165" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#243b2d">Hide my exact location</text>
+  <text x="210" y="225" font-family="Arial, sans-serif" font-size="24" fill="#5d6960">Publishes an approximate circle around a randomised point instead of the exact spot.</text>
+  <rect x="1060" y="148" width="120" height="56" rx="28" fill="#3e7053"/>
+  <circle cx="1148" cy="176" r="22" fill="#fff"/>
+  <text x="210" y="310" font-family="Arial, sans-serif" font-size="30" fill="#5d6960">Approximate area</text>
+  <rect x="210" y="350" width="980" height="70" rx="18" fill="#fafbf8" stroke="#e0e5dc" stroke-width="2"/>
+  <circle cx="248" cy="385" r="13" fill="none" stroke="#3e7053" stroke-width="3"/>
+  <text x="285" y="395" font-family="Arial, sans-serif" font-size="30" fill="#242d27">Tight — about a 300 m radius</text>
+  <rect x="210" y="438" width="980" height="70" rx="18" fill="#eef7f0" stroke="#3e7053" stroke-width="3"/>
+  <circle cx="248" cy="473" r="13" fill="none" stroke="#3e7053" stroke-width="3"/>
+  <circle cx="248" cy="473" r="6" fill="#3e7053"/>
+  <text x="285" y="483" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#242d27">Balanced — about a 500 m radius</text>
+  <rect x="210" y="526" width="980" height="70" rx="18" fill="#fafbf8" stroke="#e0e5dc" stroke-width="2"/>
+  <circle cx="248" cy="561" r="13" fill="none" stroke="#3e7053" stroke-width="3"/>
+  <text x="285" y="571" font-family="Arial, sans-serif" font-size="30" fill="#242d27">Wide — about a 1 km radius</text>
+</svg>

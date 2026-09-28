@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="820" viewBox="0 0 1400 820">
+  <rect width="1400" height="820" fill="#f6f7f4"/>
+  <rect x="120" y="70" width="1160" height="680" rx="42" fill="#fff" stroke="#dae0d6" stroke-width="3"/>
+  <text x="190" y="145" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#243b2d">Add update</text>
+  <text x="190" y="195" font-family="Arial, sans-serif" font-size="24" fill="#5d6960">Write a short project update and attach optional evidence.</text>
+  <rect x="190" y="235" width="1020" height="120" rx="20" fill="#fbfcf7" stroke="#e0e5dc" stroke-width="2"/>
+  <text x="220" y="285" font-family="Arial, sans-serif" font-size="24" fill="#7a857d">Share a quick project update...</text>
+  <text x="190" y="405" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#243b2d">Attach optional evidence</text>
+  <g font-family="Arial, sans-serif" font-size="24" font-weight="700">
+    <rect x="190" y="440" width="185" height="72" rx="18" fill="#eef7f0" stroke="#3e7053" stroke-width="3"/>
+    <text x="232" y="485" fill="#243b2d">📸 Images</text>
+    <rect x="395" y="440" width="185" height="72" rx="18" fill="#fbfcf7" stroke="#e0e5dc" stroke-width="2"/>
+    <text x="435" y="485" fill="#243b2d">🎙 Sounds</text>
+    <rect x="600" y="440" width="185" height="72" rx="18" fill="#fbfcf7" stroke="#e0e5dc" stroke-width="2"/>
+    <text x="648" y="485" fill="#243b2d">🌳 Trees</text>
+    <rect x="805" y="440" width="205" height="72" rx="18" fill="#fbfcf7" stroke="#e0e5dc" stroke-width="2"/>
+    <text x="835" y="485" fill="#243b2d">🦋 Observations</text>
+    <rect x="1030" y="440" width="180" height="72" rx="18" fill="#fbfcf7" stroke="#e0e5dc" stroke-width="2"/>
+    <text x="1075" y="485" fill="#243b2d">📄 Files</text>
+  </g>
+  <rect x="190" y="555" width="1020" height="76" rx="18" fill="#fbfcf7" stroke="#e0e5dc" stroke-width="2"/>
+  <text x="220" y="603" font-family="Arial, sans-serif" font-size="24" fill="#243b2d">🔗 External link: reports, websites, dashboards, maps, datasets, or evidence platforms</text>
+  <rect x="190" y="660" width="250" height="58" rx="29" fill="#3e7053"/>
+  <text x="250" y="697" font-family="Arial, sans-serif" font-size="24" font-weight="700" fill="#fff">Post update</text>
+</svg>

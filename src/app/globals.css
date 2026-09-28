@@ -1,26 +1,916 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* next/font declares --font-geist-* on <html> (see app/layout.tsx). The trailing
+     stacks are a safety net: an undefined variable makes the whole declaration
+     invalid-at-computed-value-time, which silently falls back to the browser font. */
+  --font-sans: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
+  --font-mono: var(--font-geist-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  --font-heading: var(--font-sans);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-status-ok: var(--status-ok);
+  --color-status-ok-bg: var(--status-ok-bg);
+  --color-status-warn: var(--status-warn);
+  --color-status-warn-bg: var(--status-warn-bg);
+  --color-status-bad: var(--status-bad);
+  --color-status-bad-bg: var(--status-bad-bg);
+  --color-status-idle: var(--status-idle);
+  --color-status-idle-bg: var(--status-idle-bg);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  /* Concentric radius scale. Each step is one 4px inset from the next, so a
+     child nested with padding p gets radius = parent radius − p and the two
+     arcs stay parallel. Explicit values, not multipliers off --radius, because
+     the concentric relationship is the point.
+
+       shell  32  main panel
+       └ card 24  (panel padding is large; card is the next full step)
+         └ well 16  (24 − 8 inset)
+           └ chip 12  (16 − 4 inset)
+
+     Anything at control height (≤ 36px: buttons, inputs, badges, pills, nav
+     rows) is rounded-full instead: at that size a fixed radius reads as a
+     squircle fighting the cap height. */
+  --radius-xs: 0.5rem; /* 8  */
+  --radius-sm: 0.75rem; /* 12 chip  */
+  --radius-md: 1rem; /* 16 well  */
+  --radius-lg: 1.25rem; /* 20 */
+  --radius-xl: 1.5rem; /* 24 card  */
+  --radius-2xl: 1.75rem; /* 28 */
+  --radius-3xl: 2rem; /* 32 shell */
+  --radius-4xl: 2.5rem; /* 40 */
+
+  /* The only shadow in the system. Overlays leave the document flow, so no
+     background step can separate them, which is the "wherever possible" edge.
+     Offset + soft blur, never a zero-offset halo. */
+  --shadow-overlay:
+    0 16px 40px -12px oklch(0.18 0.02 158 / 0.22),
+    0 4px 12px -6px oklch(0.18 0.02 158 / 0.12);
+
+  /* Motion tokens. See design.md; built-in CSS easings are too weak. */
+  --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
+
+  --duration-press: 140ms;
+  --duration-tooltip: 150ms;
+  --duration-menu: 180ms;
+  --duration-overlay: 260ms;
 }
 
-@media (prefers-color-scheme: dark) {
+:root {
+  /* GainForest: canopy greens on a warm sage neutral.
+
+     ELEVATION IS LUMINANCE. There are no borders and no shadows outside
+     overlays; every edge in this UI is a step on a four-rung tonal ladder.
+
+       L0  --sidebar     app chrome, furthest back
+       L1  --background  the inset main panel
+       L2  --card        content surfaces, nearest the viewer
+       L1  --muted       wells recessed inside a card (back down to L1)
+
+     Recessed always means "toward the canvas value", which keeps the model
+     identical in light and dark instead of inverting. Steps are ~0.03 L in
+     light and ~0.04 L in dark, the smallest gap that still reads as an edge
+     on an uncalibrated panel. */
+  --sidebar: oklch(0.928 0.012 152);
+  --background: oklch(0.962 0.008 150);
+  --card: oklch(1 0 0);
+  --muted: oklch(0.962 0.008 150);
+
+  --foreground: oklch(0.205 0.014 155);
+  --card-foreground: oklch(0.205 0.014 155);
+  --muted-foreground: oklch(0.505 0.021 152);
+  --popover: oklch(0.995 0.002 150);
+  --popover-foreground: oklch(0.205 0.014 155);
+
+  --primary: oklch(0.52 0.113 158);
+  --primary-foreground: oklch(0.99 0.01 150);
+  --secondary: oklch(0.94 0.012 152);
+  --secondary-foreground: oklch(0.31 0.035 158);
+  --accent: oklch(0.938 0.026 156);
+  --accent-foreground: oklch(0.3 0.055 158);
+  --destructive: oklch(0.545 0.222 27.325);
+
+  /* Control tier, deliberately off the ladder. A field has to read as a slot
+     on whatever rung it lands on, so it sits below every surface in light and
+     above every surface in dark instead of tracking one of them. --muted
+     cannot do this job: it is L1, which is exactly the panel a header input
+     sits on. */
+  --input: oklch(0.912 0.014 152);
+
+  /* Focus rings only. Nothing in this UI draws a resting border. */
+  --border: oklch(0.885 0.012 150);
+  --ring: oklch(0.52 0.113 158);
+
+  --chart-1: oklch(0.52 0.113 158);
+  --chart-2: oklch(0.646 0.115 168);
+  --chart-3: oklch(0.73 0.13 128);
+  --chart-4: oklch(0.7 0.135 76);
+  --chart-5: oklch(0.59 0.09 226);
+
+  /* Status tiers.
+
+     --primary and --destructive are tuned for solid fills and fail 4.5:1 as
+     text on their own 10% tint. These foregrounds are tuned against that tint
+     composited over the darkest surface a badge can land on, which is NOT the
+     well: --input is deliberately off the ladder and sits below every surface
+     in light, so a status pill inside a control (the round picker's select
+     trigger) is the worst case. Verified with axe in both themes.
+
+     Never use text-primary for status text on a tint. */
+  --status-ok: oklch(0.415 0.095 158);
+  --status-ok-bg: oklch(0.52 0.113 158 / 0.14);
+  --status-warn: oklch(0.455 0.105 66);
+  --status-warn-bg: oklch(0.72 0.15 70 / 0.18);
+  --status-bad: oklch(0.445 0.175 27);
+  --status-bad-bg: oklch(0.55 0.22 27 / 0.12);
+  --status-idle: oklch(0.44 0.021 152);
+  --status-idle-bg: oklch(0.2 0.012 155 / 0.09);
+
+  --radius: 1.5rem;
+
+  --sidebar-foreground: oklch(0.255 0.018 155);
+  --sidebar-primary: oklch(0.52 0.113 158);
+  --sidebar-primary-foreground: oklch(0.99 0.01 150);
+  --sidebar-accent: oklch(0.966 0.007 150);
+  --sidebar-accent-foreground: oklch(0.28 0.055 158);
+  --sidebar-border: oklch(0.885 0.012 150);
+  --sidebar-ring: oklch(0.52 0.113 158);
+}
+
+.dark {
+  /* Same ladder, same direction: recessed moves toward the canvas. */
+  --sidebar: oklch(0.146 0.008 158);
+  --background: oklch(0.188 0.011 158);
+  --card: oklch(0.234 0.013 158);
+  --muted: oklch(0.188 0.011 158);
+
+  --foreground: oklch(0.965 0.008 150);
+  --card-foreground: oklch(0.965 0.008 150);
+  --muted-foreground: oklch(0.715 0.021 152);
+  --popover: oklch(0.262 0.014 158);
+  --popover-foreground: oklch(0.965 0.008 150);
+
+  --primary: oklch(0.762 0.132 160);
+  --primary-foreground: oklch(0.18 0.035 158);
+  --secondary: oklch(0.278 0.016 158);
+  --secondary-foreground: oklch(0.965 0.008 150);
+  --accent: oklch(0.298 0.03 158);
+  --accent-foreground: oklch(0.965 0.008 150);
+  --destructive: oklch(0.712 0.176 22.216);
+
+  --input: oklch(0.298 0.017 158);
+  --border: oklch(1 0 0 / 12%);
+  --ring: oklch(0.762 0.132 160);
+
+  --chart-1: oklch(0.762 0.132 160);
+  --chart-2: oklch(0.688 0.115 175);
+  --chart-3: oklch(0.8 0.14 128);
+  --chart-4: oklch(0.76 0.135 76);
+  --chart-5: oklch(0.67 0.1 226);
+
+  --status-ok: oklch(0.83 0.145 162);
+  --status-ok-bg: oklch(0.762 0.132 160 / 0.16);
+  --status-warn: oklch(0.845 0.135 82);
+  --status-warn-bg: oklch(0.8 0.14 75 / 0.16);
+  --status-bad: oklch(0.785 0.145 22);
+  --status-bad-bg: oklch(0.712 0.176 22 / 0.18);
+  --status-idle: oklch(0.81 0.021 152);
+  --status-idle-bg: oklch(1 0 0 / 0.09);
+
+  --sidebar-foreground: oklch(0.955 0.008 150);
+  --sidebar-primary: oklch(0.762 0.132 160);
+  --sidebar-primary-foreground: oklch(0.18 0.035 158);
+  --sidebar-accent: oklch(0.232 0.013 158);
+  --sidebar-accent-foreground: oklch(0.965 0.008 150);
+  --sidebar-border: oklch(1 0 0 / 12%);
+  --sidebar-ring: oklch(0.762 0.132 160);
+
+  --shadow-overlay:
+    0 16px 40px -12px oklch(0 0 0 / 0.55), 0 4px 12px -6px oklch(0 0 0 / 0.4);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    /* L0. The inset panel paints --background on top of this. */
+    @apply bg-sidebar text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+
+  /* Numeric data should never reflow while it animates or updates. */
+  .tabular {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum";
+  }
+
+  /* --- Browser surfaces -------------------------------------------------
+     Selection, caret, and scrollbars ship with defaults that belong to no
+     design system. A stock blue selection highlight on a sage-and-green page
+     is the loudest unthemed pixel in the product. */
+
+  ::selection {
+    background-color: color-mix(in oklch, var(--primary) 22%, transparent);
+    color: var(--foreground);
+  }
+
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    accent-color: var(--primary);
+    caret-color: var(--primary);
+    scrollbar-color: color-mix(in oklch, var(--foreground) 18%, transparent)
+      transparent;
+    scrollbar-width: thin;
+  }
+
+  /* WebKit needs the long form; borderless and background-only, like the
+     rest of the system. */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: color-mix(in oklch, var(--foreground) 16%, transparent);
+    border: 3px solid transparent;
+    border-radius: 9999px;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklch, var(--foreground) 28%, transparent);
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* One focus ring for the whole app, offset so it reads on every surface
+     of the tonal ladder rather than only the lightest one. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Every pressable surface confirms it heard the user. 140ms / ease-out. */
+  button:not([disabled]),
+  [role="button"]:not([aria-disabled="true"]),
+  a[data-pressable] {
+    transition:
+      transform var(--duration-press) var(--ease-out-strong),
+      background-color var(--duration-press) ease,
+      border-color var(--duration-press) ease,
+      color var(--duration-press) ease,
+      box-shadow var(--duration-press) ease;
+  }
+
+  button:not([disabled]):active,
+  [role="button"]:not([aria-disabled="true"]):active,
+  a[data-pressable]:active {
+    transform: scale(0.97);
+  }
+
+  /* Sonner ships its own chrome: a 1px border (removed at its source, see
+     sonner.tsx) and a hardcoded shadow. A toast leaves the document flow, so
+     it is an overlay, and the overlay shadow is the only shadow in this
+     system. The selector out-specifies sonner's own rule on purpose; the
+     `cn-toast` class is the hook sonner.tsx passes for exactly this. */
+  [data-sonner-toast][data-styled="true"].cn-toast {
+    box-shadow: var(--shadow-overlay);
+  }
+}
+
+/* Reduced motion means fewer and gentler animations, not zero.
+   Opacity and color stay; movement goes. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  button:active,
+  [role="button"]:active,
+  a[data-pressable]:active {
+    transform: none;
+  }
+}
+/* --- Reading surface ------------------------------------------------------
+   The admin's type scale is tuned for dense tooling (`text-sm` body). A docs
+   page is read, not scanned, so the article body steps up to 16/17px with a
+   28px line, and the measure is capped at 72ch by the page. Everything here
+   is tokens: no raw colour, no border, no shadow. design.md §4a. */
+@layer components {
+  .prose {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: color-mix(in oklch, var(--foreground) 88%, var(--background));
+    overflow-wrap: break-word;
+  }
+  @media (min-width: 768px) {
+    .prose {
+      font-size: 1.0625rem;
+    }
+  }
+  .prose > :first-child {
+    margin-top: 0;
+  }
+  .prose :where(p, ul, ol, blockquote, table, pre):not(:where(.not-prose, .not-prose *)) {
+    margin-block: 1.25em;
+  }
+  .prose :where(h2, h3, h4):not(:where(.not-prose *)) {
+    color: var(--foreground);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    scroll-margin-top: 5rem;
+    text-wrap: balance;
+  }
+  .prose :where(h2):not(:where(.not-prose *)) {
+    font-size: 1.5em;
+    line-height: 1.3;
+    margin-top: 2.25em;
+    margin-bottom: 0.75em;
+  }
+  .prose :where(h3):not(:where(.not-prose *)) {
+    font-size: 1.2em;
+    line-height: 1.4;
+    margin-top: 1.75em;
+    margin-bottom: 0.5em;
+  }
+  .prose :where(h4):not(:where(.not-prose *)) {
+    font-size: 1em;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+  }
+  .prose :where(strong):not(:where(.not-prose *)) {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+  .prose :where(a):not(:where(.not-prose *)) {
+    color: var(--foreground);
+    font-weight: 500;
+    text-decoration-line: underline;
+    text-decoration-color: color-mix(in oklch, var(--primary) 45%, transparent);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 3px;
+    transition: text-decoration-color var(--duration-press) ease;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .prose :where(a):not(:where(.not-prose *)):hover {
+      text-decoration-color: var(--primary);
+    }
+  }
+  .prose :where(ul, ol):not(:where(.not-prose, .not-prose *, .steps)) {
+    padding-inline-start: 1.5em;
+  }
+  .prose :where(ul):not(:where(.not-prose *)) {
+    list-style: disc;
+  }
+  .prose :where(ol):not(:where(.not-prose *, .steps)) {
+    list-style: decimal;
+  }
+  .prose :where(li):not(:where(.not-prose *)) {
+    margin-block: 0.4em;
+    padding-inline-start: 0.25em;
+  }
+  .prose :where(li)::marker {
+    color: var(--muted-foreground);
+  }
+  .prose :where(blockquote):not(:where(.not-prose *)) {
+    background: var(--card);
+    border-radius: var(--radius-md);
+    padding: 1em 1.25em;
+    color: var(--muted-foreground);
+  }
+  .prose :where(blockquote > :first-child) {
+    margin-top: 0;
+  }
+  .prose :where(blockquote > :last-child) {
+    margin-bottom: 0;
+  }
+  .prose :where(code):not(:where(pre *, .not-prose *)) {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    background: var(--card);
+    border-radius: var(--radius-xs);
+    padding: 0.15em 0.4em;
+  }
+  .prose :where(pre):not(:where(.not-prose *)) {
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    line-height: 1.7;
+    background: var(--card);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    overflow-x: auto;
+  }
+  .prose :where(hr):not(:where(.not-prose *)) {
+    height: 0.25rem;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--card);
+    margin-block: 3em;
+  }
+  .prose :where(img):not(:where(.not-prose *)) {
+    border-radius: var(--radius-md);
+  }
+  /* Tables: an L2 surface, no rules; column heads in muted tracked caps. */
+  .prose :where(table):not(:where(.not-prose *)) {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.875em;
+    background: var(--card);
+    border-radius: var(--radius-md);
+    padding: 0.25rem;
+  }
+  .prose :where(th):not(:where(.not-prose *)) {
+    text-align: start;
+    font-weight: 500;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--muted-foreground);
+    padding: 0.625rem 0.75rem;
+  }
+  .prose :where(td):not(:where(.not-prose *)) {
+    padding: 0.625rem 0.75rem;
+    vertical-align: top;
+  }
+
+  /* Callout bodies sit on a tint, so their own rhythm is tighter. */
+  .prose-callout > :first-child {
+    margin-top: 0;
+  }
+  .prose-callout > :last-child {
+    margin-bottom: 0;
+  }
+  .prose-callout :where(p, ul, ol) {
+    margin-block: 0.5em;
+  }
+
+  .prose-caption {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+  }
+  .prose-caption > :first-child {
+    margin-top: 0;
+  }
+
+  /* Steps: a numbered pill on a rail. Counter-driven, so the MDX never
+     carries a number that can go stale. */
+  .steps {
+    counter-reset: step;
+  }
+  .step {
+    counter-increment: step;
+    /* Clears the sticky header and the step pills when jumped to. */
+    scroll-margin-top: 7.5rem;
+  }
+  .step :where(h2, h3, h4) {
+    scroll-margin-top: 7.5rem;
+  }
+  .step::before {
+    content: counter(step);
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0.125rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background: var(--status-ok-bg);
+    color: var(--status-ok);
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+  .step::after {
+    content: "";
+    position: absolute;
+    inset-inline-start: calc(1rem - 1px);
+    top: 2.75rem;
+    bottom: -1rem;
+    width: 2px;
+    border-radius: 9999px;
+    background: color-mix(in oklch, var(--foreground) 10%, transparent);
+  }
+  .step:last-child::after {
+    display: none;
+  }
+  /* Scroll-follow (steps.tsx): passed steps fill their number and the rail
+     below them; the current one gets a ring. Colour and scale only. */
+  .step::before {
+    transition:
+      background-color var(--duration-menu) ease,
+      color var(--duration-menu) ease,
+      outline-color var(--duration-menu) ease,
+      transform var(--duration-menu) var(--ease-out-strong);
+    outline: 4px solid transparent;
+  }
+  .step[data-state="done"]::before {
+    background: var(--primary);
+    color: var(--primary-foreground);
+  }
+  .step[data-state="current"]::before {
+    outline-color: color-mix(in oklch, var(--primary) 22%, transparent);
+    transform: scale(1.06);
+  }
+  .step::after {
+    transition: background-color 400ms ease;
+  }
+  .step[data-state="done"]::after {
+    background-color: color-mix(in oklch, var(--primary) 55%, transparent);
+  }
+  .step > :first-child {
+    margin-top: 0.25rem;
+  }
+  .step > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+/* --- Motion ---------------------------------------------------------------
+   Every transition in the docs, in one place. Curves and durations are the
+   tokens in @theme; nothing here invents a value. design.md §6.
+
+   Frequency decides intensity. A page is read occasionally, so arriving on
+   one earns a short staggered entrance; hover is seen tens of times, so it
+   is colour plus a 1-2px lift and nothing else; the ⌘K palette opened from
+   the keyboard does not animate at all (see search-palette.tsx).
+
+   `transform`, `opacity`, `clip-path` and `filter` only. The one height
+   animation is the sidebar folder, an accordion, where there is no transform
+   equivalent. Reduced motion collapses all of it at the bottom of this file. */
+
+@keyframes gf-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes gf-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes gf-rise {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}
+
+@keyframes gf-grow-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes gf-shimmer {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes gf-target {
+  from {
+    background-color: color-mix(in oklch, var(--primary) 18%, transparent);
+  }
+  to {
+    background-color: transparent;
+  }
+}
+
+@layer components {
+  /* Page arrival. The header block, then each top-level block of the body,
+     40ms apart. Capped at the tenth block so nothing waits long: the first
+     screen cascades, everything below it is simply there (or revealed on
+     scroll, below). `backwards` fill means a block is only hidden during its
+     own delay; if the animation never runs, the content is visible. */
+  .page-enter .enter-item,
+  .page-enter .prose > * {
+    animation: gf-enter var(--duration-overlay) var(--ease-out-strong) backwards;
+  }
+  .page-enter .enter-item:nth-child(1) { animation-delay: 0ms; }
+  .page-enter .enter-item:nth-child(2) { animation-delay: 40ms; }
+  .page-enter .enter-item:nth-child(3) { animation-delay: 80ms; }
+  .page-enter .enter-item:nth-child(4) { animation-delay: 100ms; }
+  .page-enter .prose > *:nth-child(1) { animation-delay: 120ms; }
+  .page-enter .prose > *:nth-child(2) { animation-delay: 160ms; }
+  .page-enter .prose > *:nth-child(3) { animation-delay: 200ms; }
+  .page-enter .prose > *:nth-child(4) { animation-delay: 240ms; }
+  .page-enter .prose > *:nth-child(5) { animation-delay: 280ms; }
+  .page-enter .prose > *:nth-child(6) { animation-delay: 320ms; }
+  .page-enter .prose > *:nth-child(7) { animation-delay: 360ms; }
+  .page-enter .prose > *:nth-child(n + 8) { animation-delay: 400ms; }
+
+  /* The outline column arrives with the page but does not cascade: it is
+     secondary, so it fades in once the article has started. */
+  .page-enter .toc-enter {
+    animation: gf-fade var(--duration-overlay) var(--ease-out-strong) 160ms backwards;
+  }
+
+  /* Scroll reveal, for blocks that start below the fold. JS marks them
+     `pending` on mount and `shown` once, when they first intersect; with no
+     JS nothing is ever marked, so nothing is ever hidden. */
+  [data-reveal="pending"] {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  [data-reveal="shown"] {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 400ms var(--ease-out-strong),
+      transform 400ms var(--ease-out-strong);
+  }
+
+  /* A heading reached through a link (TOC, search, a shared URL) flashes a
+     primary tint once, so the eye lands on it. */
+  .prose :where(h2, h3, h4):target {
+    border-radius: var(--radius-xs);
+    animation: gf-target 1200ms var(--ease-out-strong);
+  }
+
+  /* Surfaces that are links: colour on hover, a 2px lift where the pointer
+     is precise, and the global press scale (data-pressable). */
+  .lift {
+    transition:
+      background-color var(--duration-press) ease,
+      transform var(--duration-menu) var(--ease-out-strong);
+  }
+  .lift .lift-chip {
+    transition:
+      transform var(--duration-menu) var(--ease-out-strong),
+      background-color var(--duration-press) ease;
+  }
+  .lift .lift-arrow {
+    transition: transform var(--duration-menu) var(--ease-out-strong);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .lift:hover {
+      transform: translateY(-2px);
+    }
+    .lift:hover .lift-chip {
+      transform: scale(1.08) rotate(-4deg);
+    }
+    .lift:hover .lift-arrow {
+      transform: translateX(3px);
+    }
+    .lift:hover .lift-arrow-back {
+      transform: translateX(-3px);
+    }
+    .lift:hover .lift-arrow-out {
+      transform: translate(2px, -2px);
+    }
+  }
+  .lift:active {
+    transform: scale(0.98);
+  }
+
+  /* Sidebar rows: colour only, under 150ms. The active pill moves with a
+     spring (docs-sidebar.tsx); hover must not compete with it. */
+  [data-sidebar="menu-button"],
+  [data-sidebar="menu-sub-button"] {
+    transition:
+      background-color var(--duration-press) ease,
+      color var(--duration-press) ease;
+  }
+  [data-sidebar="menu-button"] > svg,
+  [data-sidebar="menu-sub-button"] > svg {
+    transition: transform var(--duration-menu) var(--ease-out-strong);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    [data-sidebar="menu-button"]:hover > svg:first-of-type {
+      transform: scale(1.1);
+    }
+  }
+
+  /* The sidebar's first paint: groups arrive in sequence, once. The shell
+     persists across navigation, so this never replays. */
+  [data-sidebar="group"] {
+    animation: gf-enter var(--duration-overlay) var(--ease-out-strong) backwards;
+  }
+  [data-sidebar="group"]:nth-child(2) { animation-delay: 30ms; }
+  [data-sidebar="group"]:nth-child(3) { animation-delay: 60ms; }
+  [data-sidebar="group"]:nth-child(4) { animation-delay: 90ms; }
+  [data-sidebar="group"]:nth-child(5) { animation-delay: 120ms; }
+  [data-sidebar="group"]:nth-child(6) { animation-delay: 150ms; }
+  [data-sidebar="group"]:nth-child(n + 7) { animation-delay: 180ms; }
+
+  /* Folder open and close: an accordion, so height it is, kept short. */
+  .folder-content {
+    overflow: hidden;
+  }
+  .folder-content[data-state="open"] {
+    animation: collapsible-down var(--duration-menu) var(--ease-out-strong);
+  }
+  .folder-content[data-state="closed"] {
+    animation: collapsible-up 150ms var(--ease-out-strong);
+  }
+  .folder-content > * {
+    transition: opacity var(--duration-menu) ease;
+  }
+  .folder-content[data-state="closed"] > * {
+    opacity: 0;
+  }
+
+  /* Search results arrive: a short rise, staggered by position, only when
+     an item mounts. A result that stays across keystrokes does not replay. */
+  .result-enter {
+    animation: gf-rise var(--duration-menu) var(--ease-out-strong) backwards;
+  }
+
+  /* Header reading progress: a scroll-driven animation on the panel's own
+     scroll, off the main thread. Unsupported browsers show no bar. */
+  .read-progress {
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+  }
+  @supports (animation-timeline: scroll()) {
+    .read-progress {
+      animation: gf-grow-x linear both;
+      animation-timeline: scroll(nearest block);
+    }
+  }
+
+  /* An embed loading: a slow shimmer across the well until the frame paints
+     over it. Constant motion, so linear. */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklch, var(--foreground) 6%, transparent),
+      transparent
+    );
+    animation: gf-shimmer 1400ms linear infinite;
+  }
+
+  /* Icon swap: two glyphs stacked, crossfading with scale and a touch of
+     blur so they read as one object changing, not two swapping. */
+  .swap {
+    display: inline-grid;
+  }
+  .swap > * {
+    grid-area: 1 / 1;
+    transition:
+      opacity var(--duration-menu) var(--ease-out-strong),
+      transform var(--duration-menu) var(--ease-out-strong),
+      filter var(--duration-menu) var(--ease-out-strong);
+  }
+  .swap > [data-shown="false"] {
+    opacity: 0;
+    transform: scale(0.5) rotate(-45deg);
+    filter: blur(2px);
+  }
+
+  /* The theme toggle's pair follows the theme class, not React state. */
+  .swap > .theme-moon,
+  .dark .swap > .theme-sun {
+    opacity: 0;
+    transform: scale(0.5) rotate(-90deg);
+    filter: blur(2px);
+  }
+  .dark .swap > .theme-moon {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  /* Anchor jumps inside the panel glide; reduced motion makes them instant. */
+  #main {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Overlays. Unlayered on purpose: tw-animate's utilities sit in a later
+   layer than `components`, so only an unlayered rule can retune them. The kit draws them with tw-animate; these retune its duration
+   and curve to the system's tokens rather than editing every class list.
+   Popovers grow from their trigger; the dialog stays centred. */
+[data-slot="dialog-content"],
+[data-slot="sheet-content"],
+[data-slot="tooltip-content"],
+[data-slot="popover-content"],
+[data-slot="dropdown-menu-content"] {
+  --tw-ease: var(--ease-out-strong);
+}
+[data-slot="dialog-content"] {
+  --tw-duration: var(--duration-overlay);
+  --tw-enter-scale: 0.96;
+  --tw-exit-scale: 0.96;
+}
+[data-slot="dialog-content"][data-state="closed"] {
+  --tw-duration: var(--duration-menu);
+}
+[data-slot="dialog-overlay"] {
+  --tw-duration: var(--duration-overlay);
+  --tw-ease: var(--ease-out-strong);
+}
+[data-slot="sheet-content"] {
+  --tw-ease: var(--ease-drawer);
+  --tw-duration: 400ms;
+}
+[data-slot="sheet-content"][data-state="closed"] {
+  --tw-duration: var(--duration-overlay);
+}
+[data-slot="tooltip-content"] {
+  --tw-duration: var(--duration-tooltip);
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+}
+
+/* ⌘K opens the palette instantly: a keyboard action repeated all day
+   should never wait for an animation. A pointer open animates. */
+html[data-palette="instant"] [data-slot="dialog-content"],
+html[data-palette="instant"] [data-slot="dialog-overlay"] {
+  animation: none;
+}
+
+
+/* A page reached from the keyboard (j / k) appears at once. */
+html[data-instant] .page-enter *,
+html[data-instant] .page-enter {
+  animation: none !important;
+}
+[data-slot="popover-content"] {
+  --tw-duration: var(--duration-menu);
+}
+
+/* Theme change: a circular reveal from the toggle, through the View
+   Transitions API. Rare and deliberate, so it may take 500ms. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) {
+  animation: gf-theme-reveal 500ms var(--ease-in-out-strong);
+}
+@keyframes gf-theme-reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x, 100%) var(--vt-y, 0%));
+  }
+  to {
+    clip-path: circle(var(--vt-r, 150vmax) at var(--vt-x, 100%) var(--vt-y, 0%));
+  }
 }
