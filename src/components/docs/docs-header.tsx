@@ -15,7 +15,7 @@ import { site } from "@/lib/site";
  */
 export function DocsHeader() {
   return (
-    <header className="sticky top-0 z-20 shrink-0 rounded-t-3xl bg-card/70 backdrop-blur-md">
+    <header className="sticky top-0 z-20 shrink-0 rounded-t-3xl bg-background/80 backdrop-blur-md dark:bg-card/70">
       {/* Reading progress, drawn by a scroll-driven animation on the panel's
           own scroll (globals.css). Pure CSS, off the main thread. */}
       <span aria-hidden className="absolute inset-x-0 bottom-0 h-0.5 overflow-hidden">

@@ -41,17 +41,19 @@ Four rungs, in `src/app/globals.css`:
 
 | Rung | Token | What sits here |
 | --- | --- | --- |
-| **L0** | `--sidebar` | The page list rail the panel floats on. Furthest back. |
-| **L1** | `--background` | The inset main panel, and the article inside it. |
-| **L2** | `--card` | Every content surface on the article: cards, link cards, figure frames, tables, code, blockquotes, the note callout, prev/next, and the header bar. |
-| **L1** | `--muted` | Wells recessed *inside* an L2 surface: the icon chip in a card. Same value as L1, reused deliberately. |
+| **L0** | `--sidebar` | The page list rail the panel floats on: the chrome. |
+| **L1** | `--background` | The page: the inset main panel, the article, and the header bar over it. Pure white in light, for reading. |
+| **L2** | `--card` | Every content surface on the page: cards, link cards, figure frames, tables, blockquotes, callouts, prev/next. |
+| **L3** | `--muted` | Wells and chips inside an L2 surface: the icon chip in a card, a table's well. |
 
-The article itself is L1, so a surface drawn in `--muted` directly on it is
-invisible. Content on the page is always L2.
+The page is the reference, and each surface set on it is one more step away
+from the page value. In light the page is white, so surfaces step *down* into
+grey (chrome 0.965, page 1, card 0.97, well 0.94); in dark they step *up* from a
+near-black page. Either way content reads as "a thing on the page", and nothing
+is lighter than the page in light mode.
 
-The rungs are neutral (chroma 0) in both themes. Steps are ~0.025 L in light and
-~0.035 L in dark: enough to read as an edge on an uncalibrated laptop panel, small
-enough that the chrome never competes with the page.
+The rungs are neutral (chroma 0) in both themes, about 0.03 L apart: enough to
+read as an edge on an uncalibrated laptop panel, quiet enough that text wins.
 
 **Recessed always means "toward the canvas value."** That keeps the mental model
 identical in both themes instead of inverting the way most dark modes do. A well is
@@ -67,7 +69,7 @@ system: real offset, soft blur, never a zero-offset halo. Nothing else may use i
 
 `--input` sits deliberately *off* the ladder: below every surface in light, above every
 surface in dark. A field has to read as a slot on whichever rung it lands on. Do not use
-`--muted` for a field: it is L1, which is exactly the panel a header input sits on, and
+`--muted` for a field: it is a well colour that has to stay distinct from every rung a field lands on, and
 the field will vanish.
 
 ### Hover lifts
@@ -420,7 +422,7 @@ them directly rather than wrapping in layers.
 
 | Pattern | Rule |
 | --- | --- |
-| Card grid | `Cards`: L2 cards, `gap-2`, hover to accent, icon in a round L1 chip. |
+| Card grid | `Cards`: L2 cards, `gap-2`, hover to accent, icon in a round L3 chip. |
 | Page link | `PageLink`: icon chip, target title and description read from the target page. |
 | Data table | Header `text-xs uppercase tracking-wide text-muted-foreground`. No row rules. |
 | Status badge | Dot + text, `rounded-full`. Never a bare colour swatch. |

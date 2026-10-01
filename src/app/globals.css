@@ -99,21 +99,23 @@
      green reads as a signal rather than a wash.
 
      ELEVATION IS LUMINANCE. There are no borders and no shadows outside
-     overlays; every edge in this UI is a step on a four-rung tonal ladder.
+     overlays; every edge in this UI is a step on a tonal ladder.
 
-       L0  --sidebar     app chrome, furthest back
-       L1  --background  the inset main panel
-       L2  --card        content surfaces, nearest the viewer
-       L1  --muted       wells recessed inside a card (back down to L1)
+       L0  --sidebar     app chrome, behind the page
+       L1  --background  the reading page
+       L2  --card        content surfaces set on the page
+       L3  --muted       wells and chips inside a card
 
-     Recessed always means "toward the canvas value", which keeps the model
-     identical in light and dark instead of inverting. Steps are ~0.025 L in
-     light and ~0.035 L in dark: enough to read as an edge, small enough that
-     the chrome does not compete with the page. */
-  --sidebar: oklch(0.95 0 0);
-  --background: oklch(0.977 0 0);
-  --card: oklch(1 0 0);
-  --muted: oklch(0.977 0 0);
+     The page is the reference in both themes, and each surface on it is one
+     step further from the page value, so content always reads as "a thing on
+     the page". In light the page is pure white (reading comes first), so
+     surfaces step *down* into grey: chrome 0.965, page 1, card 0.97, well
+     0.94. In dark they step up from a near-black page. Steps are ~0.03 L
+     either way: enough to read as an edge, quiet enough that text wins. */
+  --sidebar: oklch(0.965 0 0);
+  --background: oklch(1 0 0);
+  --card: oklch(0.97 0 0);
+  --muted: oklch(0.94 0 0);
 
   --foreground: oklch(0.2 0 0);
   --card-foreground: oklch(0.2 0 0);
@@ -123,10 +125,10 @@
 
   --primary: oklch(0.52 0.113 158);
   --primary-foreground: oklch(0.99 0.01 150);
-  --secondary: oklch(0.95 0 0);
+  --secondary: oklch(0.955 0 0);
   --secondary-foreground: oklch(0.28 0 0);
-  /* Hover on an L2 surface: one neutral step toward the canvas. */
-  --accent: oklch(0.962 0 0);
+  /* Hover on an L2 surface: one neutral step deeper. */
+  --accent: oklch(0.945 0 0);
   --accent-foreground: oklch(0.2 0 0);
   --destructive: oklch(0.545 0.222 27.325);
 
@@ -135,7 +137,7 @@
      above every surface in dark instead of tracking one of them. --muted
      cannot do this job: it is L1, which is exactly the panel a header input
      sits on. */
-  --input: oklch(0.93 0 0);
+  --input: oklch(0.935 0 0);
 
   /* Focus rings only. Nothing in this UI draws a resting border. */
   --border: oklch(0.9 0 0);
