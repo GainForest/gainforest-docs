@@ -69,8 +69,8 @@ system: real offset, soft blur, never a zero-offset halo. Nothing else may use i
 
 `--input` sits deliberately *off* the ladder: below every surface in light, above every
 surface in dark. A field has to read as a slot on whichever rung it lands on. Do not use
-`--muted` for a field: it is a well colour that has to stay distinct from every rung a field lands on, and
-the field will vanish.
+`--muted` for a field: inside a card it is the well the field would sit in, and the
+field would vanish.
 
 ### Hover lifts
 
