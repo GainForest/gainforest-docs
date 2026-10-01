@@ -43,7 +43,10 @@ function ActivePill({ show }: { show: boolean }) {
   );
 }
 
-const PILL_HOST = "relative isolate overflow-visible data-active:bg-transparent [&>span:last-child]:min-w-0";
+/* Row icons are grey, so the rail is a list of words and not a column of
+   glyphs; the current page's icon takes the brand green with its pill. */
+const PILL_HOST =
+  "relative isolate overflow-visible data-active:bg-transparent [&>span:last-child]:min-w-0 [&>svg]:text-muted-foreground hover:[&>svg]:text-sidebar-foreground data-active:[&>svg]:text-sidebar-primary";
 
 type Group = { name: ReactNode; key: string; nodes: PageTree.Node[] };
 

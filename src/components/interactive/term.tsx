@@ -15,7 +15,9 @@ import { glossaryTerm } from "@/lib/glossary";
  * A popover, not a hover card, so it works everywhere: a precise pointer
  * opens it on hover (after a short intent delay, closing on leave), touch and
  * keyboard open it with a tap or Enter. The underline is dotted so it reads
- * as "there is more here", distinct from a link's solid one.
+ * as "there is more here", distinct from a link's solid one, and faint at
+ * rest so a page with many terms still reads as running text; it firms up
+ * under the pointer.
  */
 export function Term({ id, children }: { id: string; children: ReactNode }) {
   const entry = glossaryTerm(id);
@@ -36,7 +38,7 @@ export function Term({ id, children }: { id: string; children: ReactNode }) {
         <InlineTrigger
           onPointerEnter={(e) => hover(true, e)}
           onPointerLeave={(e) => hover(false, e)}
-          className="term underline decoration-dotted decoration-[1.5px] underline-offset-4 [text-decoration-color:color-mix(in_oklch,var(--muted-foreground)_70%,transparent)]"
+          className="term underline decoration-dotted decoration-1 underline-offset-4 [text-decoration-color:color-mix(in_oklch,var(--muted-foreground)_45%,transparent)] hover:[text-decoration-color:var(--muted-foreground)]"
         >
           {children}
         </InlineTrigger>

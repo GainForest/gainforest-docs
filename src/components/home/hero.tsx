@@ -54,17 +54,17 @@ export async function Hero({
   const roster = orgs ? rosterFrom(orgs) : [];
 
   return (
-    <section aria-labelledby="welcome-title" className="flex flex-col gap-10">
+    <section aria-labelledby="welcome-title" className="hero-enter flex flex-col gap-10">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-6">
         <div className="flex flex-col gap-6">
           <HeroTitle id="welcome-title" text={title} accent={accent} />
-          <div className="hero-in hero-in-2 flex max-w-xl flex-col gap-3 text-lg text-pretty text-muted-foreground [&_strong]:font-medium [&_strong]:text-foreground">
+          <div className="flex max-w-xl flex-col gap-3 text-lg text-pretty text-muted-foreground [&_strong]:font-medium [&_strong]:text-foreground">
             {children}
           </div>
-          <div className="hero-in hero-in-3">
+          <div>
             <IntentRoller intents={intents} />
           </div>
-          <div className="hero-in hero-in-4 flex flex-wrap items-center gap-x-4 gap-y-3">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
             <Button asChild size="lg">
               <a href={site.app} target="_blank" rel="noreferrer" className="lift" data-pressable>
                 Open GainForest.app

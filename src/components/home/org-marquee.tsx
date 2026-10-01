@@ -52,7 +52,7 @@ export function OrgMarquee({ orgs }: { orgs: GlobeOrg[] }) {
   );
 
   return (
-    <div className="hero-in hero-in-5 flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-2">
       <div
         role="region"
         aria-label="Organizations on the Globe"

@@ -59,7 +59,7 @@ export default async function DocPage(props: PageProps<"/[[...slug]]">) {
               </>
             ) : null}
           </p>
-          <div className="enter-item">
+          <div className="enter-item" data-reading-hide>
             <PageActions markdownUrl={markdownUrl(page.slugs)} editUrl={editUrl(page.path)} />
           </div>
         </div>
@@ -68,7 +68,9 @@ export default async function DocPage(props: PageProps<"/[[...slug]]">) {
           <MDX components={mdxComponents} />
         </div>
 
-        <Feedback page={page.url} />
+        <div data-reading-hide>
+          <Feedback page={page.url} />
+        </div>
         <PageKeys prev={previous?.url ?? null} next={next?.url ?? null} headings={page.data.toc.map((t) => t.url.slice(1))} />
 
         <nav
@@ -96,7 +98,7 @@ export default async function DocPage(props: PageProps<"/[[...slug]]">) {
         </nav>
       </article>
 
-      <aside className="hidden w-56 shrink-0 xl:block">
+      <aside className="hidden w-56 shrink-0 xl:block" data-reading-hide>
         <div className="sticky top-24">
           <Toc items={page.data.toc} />
         </div>

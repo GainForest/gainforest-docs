@@ -60,7 +60,7 @@ Everything outside it composes from `src/components/ui/**`.
    `checkbox`, `radio-group`, `sonner`, `command`, `popover`, `collapsible`,
    `tooltip`, `dropdown-menu`, `tabs`, `pagination`, `field`.
 2. **Search the app.** `src/components/docs/` holds the shell (`DocsSidebar`,
-   `DocsHeader`, `SearchPalette`, `Toc`, `PageActions`, `Reveal`) and
+   `DocsHeader`, `SearchPalette`, `Toc`, `PageActions`, `ReadingModeToggle`, `Reveal`) and
    `src/components/mdx/` holds every component a page can use (`Callout`,
    `Cards`/`Card`, `PageLink`, `Embed`, `Figure`, `Steps`/`Step`,
    `ButtonLink`, `Icon`). If you are about to write a second card, link card,
@@ -205,7 +205,8 @@ but only make sense on that page:
 
 `layout` is parsed in `src/lib/source.tsx`; any other page leaves it unset.
 
-Site-wide, with no authoring needed: glossary terms (first use per page, from
+Site-wide, with no authoring needed: reading mode (header toggle or `r`;
+anything a reader can do without, mark `data-reading-hide`), glossary terms (first use per page, from
 `src/lib/glossary.ts` via `remark-glossary`), copy-link on headings, image
 zoom on every `Figure`, read time and git "updated" date, "Was this helpful?"
 (forwarded to `FEEDBACK_WEBHOOK_URL` if set), and keyboard shortcuts.

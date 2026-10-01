@@ -32,7 +32,7 @@ export function HeroGlobe({ orgs }: { orgs: GlobeOrg[] | null }) {
 
   return (
     <div
-      className="hero-in hero-in-globe relative mx-auto aspect-square w-full max-w-md lg:max-w-none"
+      className="relative mx-auto aspect-square w-full max-w-md lg:max-w-none"
       onPointerMove={(e) => {
         if (e.pointerType !== "mouse" || reduced) return;
         const r = e.currentTarget.getBoundingClientRect();

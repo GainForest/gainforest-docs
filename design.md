@@ -23,7 +23,9 @@ every button. Popovers that scale from their trigger. Individually invisible; to
 they're the difference between "internal tool" and "good software".
 
 **One accent, used sparingly.** Forest green marks the primary action, the active
-nav item, link underlines, and step numbers. When everything is highlighted, nothing is.
+nav item, link underlines, and step numbers. Every surface is a true neutral grey, so
+the green reads as a signal and never as a wash. When everything is highlighted,
+nothing is.
 
 ---
 
@@ -47,8 +49,9 @@ Four rungs, in `src/app/globals.css`:
 The article itself is L1, so a surface drawn in `--muted` directly on it is
 invisible. Content on the page is always L2.
 
-Steps are ~0.035 L in light and ~0.045 L in dark: the smallest gap that still reads as
-an edge on an uncalibrated laptop panel.
+The rungs are neutral (chroma 0) in both themes. Steps are ~0.025 L in light and
+~0.035 L in dark: enough to read as an edge on an uncalibrated laptop panel, small
+enough that the chrome never competes with the page.
 
 **Recessed always means "toward the canvas value."** That keeps the mental model
 identical in both themes instead of inverting the way most dark modes do. A well is
@@ -69,9 +72,9 @@ the field will vanish.
 
 ### Hover lifts
 
-Cards and link cards are already at L2, so they hover to `--accent`, a green-tinted
-step, rather than climbing a rung that does not exist. The
-gesture reads as lifting, which is the same language the ladder already speaks.
+Cards and link cards are already at L2, so they hover to `--accent`, one neutral
+step, rather than climbing a rung that does not exist. The 2px lift carries the
+gesture; the colour only confirms it.
 
 ### Palette intent
 
@@ -79,7 +82,7 @@ gesture reads as lifting, which is the same language the ladder already speaks.
 | --- | --- |
 | `primary` | Forest green. Primary action, active nav, focus ring, chart-1. |
 | `muted-foreground` | Secondary labels, timestamps, column headers. |
-| `accent` | Hover tint on the sidebar rail. |
+| `accent` | Neutral hover step on an L2 surface. Never a tint. |
 | `destructive` | Irreversible actions only. Never for "warning" or "overdue". |
 | `chart-1…5` | Canopy → moss → leaf → soil → water. Adjacent series stay distinguishable. |
 | `border` | Focus rings only. Nothing draws a resting border. |
@@ -96,9 +99,26 @@ deficiency, and nobody can opt out of an internal tool).
 | Attention / overdue | `text-destructive` on `destructive/10`, dot with a ring |
 | Inactive / archived | `text-muted-foreground` on `muted`, faded dot |
 
-Callouts use the same tiers: `info` is `muted`, `success` is ok, `warning` is warn,
-`danger` is bad. Each carries its own icon and a hidden word ("Tip:", "Warning:")
-so the meaning survives without colour.
+Callouts use the same tiers for their *mark*, not their surface: every callout is the
+same neutral L2 box, and the tone is the icon in the status colour (`info` muted,
+`success` ok, `warning` warn, `danger` bad). A page with several hints stays one surface instead of a
+patchwork. Each also carries a hidden word ("Tip:", "Warning:") so the meaning
+survives without colour.
+
+### Where green appears
+
+The primary button, the active sidebar pill and its icon, the outline thumb, link
+underlines, step numbers, card icon chips, the reading-progress bar, and focus rings.
+Sidebar row icons are `muted-foreground` at rest. Glossary terms are a dotted
+`muted-foreground` underline at 45%, firming up on hover.
+
+### Reading mode
+
+The book toggle in the header (or `r`) shows the page and nothing else: the page
+list closes, the outline, page actions and feedback hide (`data-reading-hide`), and
+inside the article `--primary` and `--status-ok` resolve to the foreground, so links,
+steps and card icons turn grey. Warning and danger keep their colour, because there
+the colour is meaning. It is `data-reading` on `<html>`, remembered in this browser.
 
 ### Contrast floor
 
@@ -314,13 +334,12 @@ Everything that moves, and why. Values are tokens; see `globals.css` *Motion*.
 | Globe | Slow auto-turn, pulsing rings on organizations | Delight | globe.gl; still under reduced motion |
 | Figure zoom | Dialog grows out of the image's position | Spatial consistency | `transform-origin` at the thumbnail, enter scale 0.55 |
 | Keyboard page change | No entrance | Speed | `data-instant` on `<html>` |
-| Welcome headline | Words rise out of a blur 70ms apart; the accent word's underline draws itself after | Delight, rare | CSS keyframes with `backwards` fill, 800ms, `--ease-out-strong`; runs before hydration |
-| Welcome first screen | Lead, intent line, actions, and the roster strip follow the headline; the globe comes into focus from 0.92 | Prevent a jarring swap | CSS keyframes, 700ms, staggered 100ms |
+| Welcome hero | The whole hero rises 8px and fades in as one block; nothing inside it has its own entrance | Prevent a jarring swap | `.hero-enter`, CSS keyframe, 500ms, `--ease-out-strong`, `backwards` fill; runs before hydration |
 | Welcome globe | Halo breathes; leans toward the pointer; sinks and dims as the hero scrolls away | Delight | CSS loop; Motion spring (mouse only, off under reduced motion); scroll-driven `view()` timeline |
 | Roster strip | Real organization names drift past; pointing at one flies the globe to it and pins its name | Explanation | CSS `linear` loop, paused on hover and focus, hand-scrolled under reduced motion; globe.gl `pointOfView`, 1100ms |
 | "I want to ___" | The phrase rolls up with a blur; the active dot fills over the time it is shown | State indication | Motion, 450ms `EASE_OUT`; the dot is a CSS `linear` fill whose end advances the phrase, so hover or focus pauses both. Nothing turns on its own under reduced motion |
 | Section titles, destinations | Rise 16px out of a 6px blur, once, as they enter view; the grid cascades 50ms apart | Pace a long page | Motion `whileInView`, `blurUp`, 600ms |
-| Destinations | A light follows the pointer across the grid; featured cards' large icon turns | Feedback | Custom properties written to each card; radial luminance, never a border |
+| Destinations | A light follows the pointer across the grid, shown only once the pointer has moved over it; featured cards' large icon turns | Feedback | Custom properties written to each card; radial luminance, never a border |
 | How Bumicerts works | A pinned scene builds a Project as the steps scroll past: card, evidence, link lines with travelling pulses, updates, uses | Explanation | Motion springs keyed to the step (`SCENE_SPRING`), so scrolling back reverses from where it is; `pathLength` draws |
 | Closing card | Scales up from 0.96 once; an aurora drifts behind it | Delight, rare | Motion; three CSS loops of 18 to 29s |
 
@@ -414,7 +433,7 @@ them directly rather than wrapping in layers.
 Selection, caret, `accent-color`, scrollbars (both `scrollbar-color` and the WebKit long
 form), and the focus ring are themed from the palette in `globals.css`. These ship with
 defaults that belong to no design system; a stock blue selection highlight is the loudest
-unthemed pixel in a sage-and-green site. Do not revert them to browser defaults.
+unthemed pixel in a green-accented site. Do not revert them to browser defaults.
 
 ### Accessibility floor
 

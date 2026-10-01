@@ -6,8 +6,8 @@ import { createJSONStorage, persist } from "zustand/middleware";
 
 /**
  * Everything the docs remember for a reader, in this browser only: checklist
- * ticks, feedback already given, recent and chosen searches. No account, no
- * server. `skipHydration` so the server render and the first client render
+ * ticks, feedback already given, recent and chosen searches, reading mode.
+ * No account, no server. `skipHydration` so the server render and the first client render
  * agree; `useHydrateLocal` restores it after mount.
  */
 type LocalState = {
@@ -20,6 +20,8 @@ type LocalState = {
   pushRecentSearch: (q: string) => void;
   picks: Record<string, number>;
   pick: (url: string) => void;
+  reading: boolean;
+  setReading: (on: boolean) => void;
 };
 
 export const useLocal = create<LocalState>()(
@@ -45,6 +47,8 @@ export const useLocal = create<LocalState>()(
         }),
       picks: {},
       pick: (url) => set((s) => ({ picks: { ...s.picks, [url]: (s.picks[url] ?? 0) + 1 } })),
+      reading: false,
+      setReading: (reading) => set({ reading }),
     }),
     { name: "gf-docs", storage: createJSONStorage(() => localStorage), skipHydration: true },
   ),

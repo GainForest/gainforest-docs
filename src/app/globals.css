@@ -76,8 +76,8 @@
      background step can separate them, which is the "wherever possible" edge.
      Offset + soft blur, never a zero-offset halo. */
   --shadow-overlay:
-    0 16px 40px -12px oklch(0.18 0.02 158 / 0.22),
-    0 4px 12px -6px oklch(0.18 0.02 158 / 0.12);
+    0 16px 40px -12px oklch(0.18 0 0 / 0.2),
+    0 4px 12px -6px oklch(0.18 0 0 / 0.1);
 
   /* Motion tokens. See design.md; built-in CSS easings are too weak. */
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
@@ -91,7 +91,12 @@
 }
 
 :root {
-  /* GainForest: canopy greens on a warm sage neutral.
+  /* GainForest: canopy green on a true neutral.
+
+     Green is the identity, so it is spent on meaning only: the primary
+     action, the active page, links, step numbers, focus. Every surface is a
+     neutral grey, so the article is the loudest thing on the page and the
+     green reads as a signal rather than a wash.
 
      ELEVATION IS LUMINANCE. There are no borders and no shadows outside
      overlays; every edge in this UI is a step on a four-rung tonal ladder.
@@ -102,26 +107,27 @@
        L1  --muted       wells recessed inside a card (back down to L1)
 
      Recessed always means "toward the canvas value", which keeps the model
-     identical in light and dark instead of inverting. Steps are ~0.03 L in
-     light and ~0.04 L in dark, the smallest gap that still reads as an edge
-     on an uncalibrated panel. */
-  --sidebar: oklch(0.928 0.012 152);
-  --background: oklch(0.962 0.008 150);
+     identical in light and dark instead of inverting. Steps are ~0.025 L in
+     light and ~0.035 L in dark: enough to read as an edge, small enough that
+     the chrome does not compete with the page. */
+  --sidebar: oklch(0.95 0 0);
+  --background: oklch(0.977 0 0);
   --card: oklch(1 0 0);
-  --muted: oklch(0.962 0.008 150);
+  --muted: oklch(0.977 0 0);
 
-  --foreground: oklch(0.205 0.014 155);
-  --card-foreground: oklch(0.205 0.014 155);
-  --muted-foreground: oklch(0.505 0.021 152);
-  --popover: oklch(0.995 0.002 150);
-  --popover-foreground: oklch(0.205 0.014 155);
+  --foreground: oklch(0.2 0 0);
+  --card-foreground: oklch(0.2 0 0);
+  --muted-foreground: oklch(0.49 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0 0);
 
   --primary: oklch(0.52 0.113 158);
   --primary-foreground: oklch(0.99 0.01 150);
-  --secondary: oklch(0.94 0.012 152);
-  --secondary-foreground: oklch(0.31 0.035 158);
-  --accent: oklch(0.938 0.026 156);
-  --accent-foreground: oklch(0.3 0.055 158);
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0.28 0 0);
+  /* Hover on an L2 surface: one neutral step toward the canvas. */
+  --accent: oklch(0.962 0 0);
+  --accent-foreground: oklch(0.2 0 0);
   --destructive: oklch(0.545 0.222 27.325);
 
   /* Control tier, deliberately off the ladder. A field has to read as a slot
@@ -129,10 +135,10 @@
      above every surface in dark instead of tracking one of them. --muted
      cannot do this job: it is L1, which is exactly the panel a header input
      sits on. */
-  --input: oklch(0.912 0.014 152);
+  --input: oklch(0.93 0 0);
 
   /* Focus rings only. Nothing in this UI draws a resting border. */
-  --border: oklch(0.885 0.012 150);
+  --border: oklch(0.9 0 0);
   --ring: oklch(0.52 0.113 158);
 
   --chart-1: oklch(0.52 0.113 158);
@@ -157,42 +163,44 @@
   --status-warn-bg: oklch(0.72 0.15 70 / 0.18);
   --status-bad: oklch(0.445 0.175 27);
   --status-bad-bg: oklch(0.55 0.22 27 / 0.12);
-  --status-idle: oklch(0.44 0.021 152);
-  --status-idle-bg: oklch(0.2 0.012 155 / 0.09);
+  --status-idle: oklch(0.44 0 0);
+  --status-idle-bg: oklch(0.2 0 0 / 0.08);
 
   --radius: 1.5rem;
 
-  --sidebar-foreground: oklch(0.255 0.018 155);
+  --sidebar-foreground: oklch(0.25 0 0);
   --sidebar-primary: oklch(0.52 0.113 158);
   --sidebar-primary-foreground: oklch(0.99 0.01 150);
-  --sidebar-accent: oklch(0.966 0.007 150);
-  --sidebar-accent-foreground: oklch(0.28 0.055 158);
-  --sidebar-border: oklch(0.885 0.012 150);
+  /* Hover on the rail lifts a step toward the panel. */
+  --sidebar-accent: oklch(0.982 0 0);
+  --sidebar-accent-foreground: oklch(0.2 0 0);
+  --sidebar-border: oklch(0.9 0 0);
   --sidebar-ring: oklch(0.52 0.113 158);
 }
 
 .dark {
-  /* Same ladder, same direction: recessed moves toward the canvas. */
-  --sidebar: oklch(0.146 0.008 158);
-  --background: oklch(0.188 0.011 158);
-  --card: oklch(0.234 0.013 158);
-  --muted: oklch(0.188 0.011 158);
+  /* Same ladder, same direction: recessed moves toward the canvas. A true
+     neutral black, not a green one. */
+  --sidebar: oklch(0.15 0 0);
+  --background: oklch(0.185 0 0);
+  --card: oklch(0.22 0 0);
+  --muted: oklch(0.185 0 0);
 
-  --foreground: oklch(0.965 0.008 150);
-  --card-foreground: oklch(0.965 0.008 150);
-  --muted-foreground: oklch(0.715 0.021 152);
-  --popover: oklch(0.262 0.014 158);
-  --popover-foreground: oklch(0.965 0.008 150);
+  --foreground: oklch(0.965 0 0);
+  --card-foreground: oklch(0.965 0 0);
+  --muted-foreground: oklch(0.715 0 0);
+  --popover: oklch(0.245 0 0);
+  --popover-foreground: oklch(0.965 0 0);
 
   --primary: oklch(0.762 0.132 160);
   --primary-foreground: oklch(0.18 0.035 158);
-  --secondary: oklch(0.278 0.016 158);
-  --secondary-foreground: oklch(0.965 0.008 150);
-  --accent: oklch(0.298 0.03 158);
-  --accent-foreground: oklch(0.965 0.008 150);
+  --secondary: oklch(0.26 0 0);
+  --secondary-foreground: oklch(0.965 0 0);
+  --accent: oklch(0.255 0 0);
+  --accent-foreground: oklch(0.965 0 0);
   --destructive: oklch(0.712 0.176 22.216);
 
-  --input: oklch(0.298 0.017 158);
+  --input: oklch(0.275 0 0);
   --border: oklch(1 0 0 / 12%);
   --ring: oklch(0.762 0.132 160);
 
@@ -208,14 +216,14 @@
   --status-warn-bg: oklch(0.8 0.14 75 / 0.16);
   --status-bad: oklch(0.785 0.145 22);
   --status-bad-bg: oklch(0.712 0.176 22 / 0.18);
-  --status-idle: oklch(0.81 0.021 152);
+  --status-idle: oklch(0.81 0 0);
   --status-idle-bg: oklch(1 0 0 / 0.09);
 
-  --sidebar-foreground: oklch(0.955 0.008 150);
+  --sidebar-foreground: oklch(0.955 0 0);
   --sidebar-primary: oklch(0.762 0.132 160);
   --sidebar-primary-foreground: oklch(0.18 0.035 158);
-  --sidebar-accent: oklch(0.232 0.013 158);
-  --sidebar-accent-foreground: oklch(0.965 0.008 150);
+  --sidebar-accent: oklch(0.2 0 0);
+  --sidebar-accent-foreground: oklch(0.965 0 0);
   --sidebar-border: oklch(1 0 0 / 12%);
   --sidebar-ring: oklch(0.762 0.132 160);
 
@@ -243,7 +251,7 @@
 
   /* --- Browser surfaces -------------------------------------------------
      Selection, caret, and scrollbars ship with defaults that belong to no
-     design system. A stock blue selection highlight on a sage-and-green page
+     design system. A stock blue selection highlight on a green-accented page
      is the loudest unthemed pixel in the product. */
 
   ::selection {
@@ -481,7 +489,7 @@
     vertical-align: top;
   }
 
-  /* Callout bodies sit on a tint, so their own rhythm is tighter. */
+  /* Callout bodies have their own, tighter rhythm. */
   .prose-callout > :first-child {
     margin-top: 0;
   }
@@ -686,6 +694,11 @@
     animation: gf-target 1200ms var(--ease-out-strong);
   }
 
+  /* A glossary term's dotted underline firms up under the pointer. */
+  .term {
+    transition: text-decoration-color var(--duration-press) ease;
+  }
+
   /* Surfaces that are links: colour on hover, a 2px lift where the pointer
      is precise, and the global press scale (data-pressable). */
   .lift {
@@ -857,30 +870,6 @@
    content visible. Everything below is transform, opacity, filter, or a
    stroke offset. */
 
-@keyframes gf-word {
-  from {
-    opacity: 0;
-    transform: translateY(35%);
-    filter: blur(10px);
-  }
-}
-
-@keyframes gf-arrive {
-  from {
-    opacity: 0;
-    transform: translateY(16px);
-    filter: blur(6px);
-  }
-}
-
-@keyframes gf-globe-in {
-  from {
-    opacity: 0;
-    transform: scale(0.92);
-    filter: blur(8px);
-  }
-}
-
 @keyframes gf-stroke {
   from {
     stroke-dashoffset: 1;
@@ -940,28 +929,11 @@
 }
 
 @layer components {
-  /* The headline: word i starts 70ms after word i-1; the accent's stroke
-     draws once the sentence has landed (--d, set from the word count). */
-  .hero-word {
-    animation: gf-word 800ms var(--ease-out-strong) calc(80ms + var(--i, 0) * 70ms) backwards;
-  }
-  .hero-underline {
-    stroke-dasharray: 1;
-    animation: gf-stroke 700ms var(--ease-in-out-strong) var(--d, 600ms) backwards;
-  }
-
-  /* The rest of the first screen follows the headline in. */
-  .hero-in {
-    animation: gf-arrive 700ms var(--ease-out-strong) backwards;
-  }
-  .hero-in-2 { animation-delay: 420ms; }
-  .hero-in-3 { animation-delay: 520ms; }
-  .hero-in-4 { animation-delay: 620ms; }
-  .hero-in-5 { animation-delay: 900ms; }
-  .hero-in-globe {
-    animation-name: gf-globe-in;
-    animation-duration: 1200ms;
-    animation-delay: 150ms;
+  /* The hero arrives as one block: a short rise and fade, on first paint
+     (CSS with `backwards` fill, so it runs before hydration and a failed
+     animation leaves it visible). Nothing inside it has its own entrance. */
+  .hero-enter {
+    animation: gf-enter 500ms var(--ease-out-strong) backwards;
   }
 
   /* The halo behind the globe breathes on a long loop. */
@@ -1064,7 +1036,7 @@
     transition: transform 600ms var(--ease-out-strong);
   }
   @media (hover: hover) and (pointer: fine) {
-    .spot-grid:hover .spot::before {
+    .spot-grid[data-lit]:hover .spot::before {
       opacity: 1;
     }
     .spot:hover .spot-art {
@@ -1219,6 +1191,20 @@ html[data-instant] .page-enter {
 }
 [data-slot="popover-content"] {
   --tw-duration: var(--duration-menu);
+}
+
+/* Reading mode (reading-mode.tsx): the page and nothing else. Unlayered so
+   it out-ranks the `xl:block` and `sm:inline-flex` utilities on what it
+   hides. Inside the article the brand green becomes grey (links, steps, card
+   icons); warnings keep their colour, because there the colour is meaning. */
+html[data-reading] [data-reading-hide] {
+  display: none;
+}
+html[data-reading] article {
+  --primary: var(--foreground);
+  --primary-foreground: var(--background);
+  --status-ok: var(--foreground);
+  --status-ok-bg: color-mix(in oklch, var(--foreground) 8%, transparent);
 }
 
 /* Theme change: a circular reveal from the toggle, through the View

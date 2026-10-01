@@ -57,11 +57,11 @@ export function SearchTrigger() {
   return (
     <Button
       variant="secondary"
-      className="w-full max-w-72 justify-start gap-2 text-muted-foreground"
+      className="w-full min-w-0 max-w-72 shrink justify-start gap-2 text-muted-foreground"
       onClick={() => setOpen(true, "pointer")}
     >
       <Search aria-hidden />
-      <span className="flex-1 text-start">Search the docs</span>
+      <span className="min-w-0 flex-1 truncate text-start">Search the docs</span>
       <Kbd className="hidden sm:inline-flex">⌘K</Kbd>
     </Button>
   );

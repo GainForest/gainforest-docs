@@ -10,12 +10,14 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { Kbd } from "@/components/ui/kbd";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useLocal } from "@/lib/stores/local";
 
 /**
  * Keyboard navigation for the whole site.
  *
  *   j / k   next / previous page       [ / ]   previous / next heading
  *   /       search                     ?       this sheet
+ *   r       reading mode
  *
  * The page registers its neighbours and headings (`PageKeys`); the listener
  * lives once in the shell. A keyboard action never waits on motion, so a
@@ -56,6 +58,7 @@ const ROWS: readonly [string[], string][] = [
   [["["], "Previous heading"],
   [["/"], "Search"],
   [["⌘", "K"], "Search"],
+  [["r"], "Reading mode"],
   [["?"], "Show these shortcuts"],
 ];
 
@@ -88,6 +91,9 @@ export function KeyboardShortcuts() {
         }
       } else if (e.key === "/") {
         useSearchOpen.getState().setOpen(true, "keyboard");
+      } else if (e.key === "r") {
+        const { reading, setReading } = useLocal.getState();
+        setReading(!reading);
       } else if (e.key === "?") {
         setHelp(true);
       } else return;

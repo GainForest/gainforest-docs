@@ -1,6 +1,7 @@
 import { ArrowUpRight } from "lucide-react";
 
 import { KeyboardShortcuts } from "@/components/docs/keyboard";
+import { ReadingModeToggle } from "@/components/docs/reading-mode";
 import { SearchTrigger } from "@/components/docs/search-palette";
 import { ThemeToggle } from "@/components/docs/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -24,12 +25,13 @@ export function DocsHeader() {
         <SidebarTrigger className="md:hidden" aria-label="Open the page list" />
         <SearchTrigger />
         <div className="ms-auto flex items-center gap-1">
-          <Button asChild variant="ghost" className="hidden sm:inline-flex">
+          <Button asChild variant="ghost" className="hidden sm:inline-flex" data-reading-hide>
             <a href={site.app} target="_blank" rel="noreferrer" className="lift">
               GainForest.app
               <ArrowUpRight aria-hidden data-icon="inline-end" className="lift-arrow-out lift-arrow" />
             </a>
           </Button>
+          <ReadingModeToggle />
           <KeyboardShortcuts />
           <ThemeToggle />
         </div>

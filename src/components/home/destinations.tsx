@@ -36,6 +36,9 @@ export function Destinations({
 
   function follow(e: PointerEvent<HTMLDivElement>) {
     if (e.pointerType !== "mouse" || !grid.current) return;
+    // The light shows only once the pointer has actually moved here, so a
+    // grid scrolled under a resting cursor never shows every card's default.
+    grid.current.dataset.lit = "";
     for (const el of grid.current.querySelectorAll<HTMLElement>("[data-spot]")) {
       const r = el.getBoundingClientRect();
       el.style.setProperty("--spot-x", `${e.clientX - r.left}px`);
@@ -51,6 +54,7 @@ export function Destinations({
       <motion.div
         ref={grid}
         onPointerMove={follow}
+        onPointerLeave={() => grid.current && delete grid.current.dataset.lit}
         className="spot-grid grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3"
         initial="hidden"
         whileInView="visible"
