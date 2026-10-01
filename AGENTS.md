@@ -197,7 +197,7 @@ but only make sense on that page:
 
 | Component | Use |
 | --- | --- |
-| `<Hero title accent intents>` | The headline (word-by-word reveal, `accent` underlined), the children as the lead, the "I want to ___" line (`intents` is `{ label, href }[]`), and the live globe with a strip of real organization names that steers it. |
+| `<Hero title accent intents>` | The headline (word-by-word reveal, `accent` in green), the children as the lead, the "I want to ___" line (`intents` is `{ label, href }[]`), and the live globe with a strip of real organization names that steers it. |
 | `<Destinations id title description>` + `<Destination title href icon featured>` | The bento of starting points. `featured` spans two columns. |
 | `<Journey id title description>` + `<JourneyStep title>` | A scroll story: steps in a column beside a pinned scene that builds a Project one step at a time. The scene is drawn for exactly the five steps it has. |
 | `<Live id title description>` | Two live blocks side by side (`BioblitzCountdown`, `SoundSample`). |
