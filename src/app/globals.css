@@ -949,13 +949,16 @@
     outline-offset: -2px;
   }
 
-  /* The growth line draws itself once; the fill fades in under it. */
-  .growth-line {
-    stroke-dasharray: 1;
-    animation: gf-stroke 1600ms var(--ease-out-strong) 300ms backwards;
-  }
-  .growth-area {
-    animation: gf-fade 900ms var(--ease-out-strong) 900ms backwards;
+  /* On a desktop the hero fills the panel below the header, its content
+     centred, so the space above and below it is equal. The page's top
+     padding is cancelled so it does not count twice. (1rem: the panel's
+     inset from the window; 3.5rem: the header.) */
+  @media (min-width: 64rem) {
+    .hero-fill {
+      min-height: calc(100svh - 4.5rem);
+      margin-top: -3rem;
+      padding-block: 2.5rem;
+    }
   }
 
   /* "I want to ___": the underline brightens and the arrow nudges on hover;

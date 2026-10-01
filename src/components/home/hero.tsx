@@ -3,7 +3,6 @@ import type { ReactNode } from "react";
 
 import { CountUp } from "@/components/home/count-up";
 import { FieldWall } from "@/components/home/field-wall";
-import { GrowthCurve } from "@/components/home/growth-curve";
 import { HeroTitle } from "@/components/home/hero-title";
 import { IntentRoller, type Intent } from "@/components/home/intent-roller";
 import { Button } from "@/components/ui/button";
@@ -13,8 +12,7 @@ import { fieldRecord } from "@/lib/upstream/field-record";
 /**
  * The welcome page's first screen: the headline, what this site is, the
  * "I want to" line, and what communities have actually recorded with these
- * tools: recent photographed observations from the field, the running
- * totals, and how the record has grown. All of it is read from GainForest's
+ * tools: the latest BioBlitz best pictures and the running totals. All of it is read from GainForest's
  * public indexer at build time and refreshed daily; if it cannot be read
  * the copy stands on its own and no figure is shown.
  */
@@ -32,6 +30,7 @@ export async function Hero({
   const record = await fieldRecord();
   const figures = record
     ? [
+        { value: record.observations, label: "observations" },
         { value: record.recordings, label: "sound recordings" },
         { value: record.sites, label: "mapped sites" },
         { value: record.contributors, label: "contributors" },
@@ -39,7 +38,7 @@ export async function Hero({
     : [];
 
   return (
-    <section aria-labelledby="welcome-title" className="hero-enter flex flex-col gap-6">
+    <section aria-labelledby="welcome-title" className="hero-enter hero-fill flex flex-col justify-center">
       <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10">
         <div className="flex flex-col gap-6">
           <HeroTitle id="welcome-title" text={title} accent={accent} />
@@ -72,7 +71,6 @@ export async function Hero({
         </div>
         {record && record.sightings.length > 0 ? <FieldWall sightings={record.sightings} /> : null}
       </div>
-      {record ? <GrowthCurve growth={record.growth} total={record.observations} /> : null}
     </section>
   );
 }

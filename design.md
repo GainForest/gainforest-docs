@@ -335,7 +335,6 @@ Everything that moves, and why. Values are tokens; see `globals.css` *Motion*.
 | Sound player | Playhead tracks audio; spectrogram fades in | State indication | Transform written per frame |
 | Globe | Slow auto-turn, pulsing rings on organizations | Delight | globe.gl; still under reduced motion |
 | Welcome field wall | Photo settles from 1.06 zoom over the last; caption rises after; a timer bar turns it every 5.2s, paused while held | Delight / orientation | Motion + CSS timer; never turns under reduced motion |
-| Welcome growth curve | Line draws once, fill fades under it; pointer reads out the day's total | Explanation | CSS `stroke-dashoffset` |
 | Figure zoom | Dialog grows out of the image's position | Spatial consistency | `transform-origin` at the thumbnail, enter scale 0.55 |
 | Keyboard page change | No entrance | Speed | `data-instant` on `<html>` |
 | Welcome hero | The whole hero rises 8px and fades in as one block; nothing inside it has its own entrance | Prevent a jarring swap | `.hero-enter`, CSS keyframe, 500ms, `--ease-out-strong`, `backwards` fill; runs before hydration |

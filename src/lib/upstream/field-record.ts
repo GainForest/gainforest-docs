@@ -2,8 +2,8 @@ import { z } from "zod";
 
 
 /**
- * What communities have recorded on GainForest: totals and the growth of
- * observations over time (from the public indexer), and the best pictures
+ * What communities have recorded on GainForest: totals (from the public
+ * indexer), and the best pictures
  * of the latest BioBlitz rounds (GainForest.app's own winners list, the one
  * its BioBlitz page shows). Read at build time and refreshed daily. Every number shown on the welcome page comes from here; if the
  * indexer cannot be read the hero shows no figures rather than old ones.
@@ -15,16 +15,13 @@ const SITE = "app.certified.location";
 
 const QUERY = `query {
   stats: collectionStats(collections: ["${OCCURRENCE}", "${AUDIO}", "${SITE}"]) { collection count }
-  series: collectionTimeSeries(collection: "${OCCURRENCE}") { uniqueUsers data { date cumulative } }
+  series: collectionTimeSeries(collection: "${OCCURRENCE}") { uniqueUsers }
 }`;
 
 const ResponseSchema = z.object({
   data: z.object({
     stats: z.array(z.object({ collection: z.string(), count: z.number() })),
-    series: z.object({
-      uniqueUsers: z.number(),
-      data: z.array(z.object({ date: z.string(), cumulative: z.number() })),
-    }),
+    series: z.object({ uniqueUsers: z.number() }),
   }),
 });
 /** Best picture of every finished round, newest first. */
@@ -66,8 +63,6 @@ export type FieldRecord = {
   recordings: number;
   sites: number;
   contributors: number;
-  /** Cumulative observations, one point per day that had any. */
-  growth: { date: string; total: number }[];
   sightings: Sighting[];
 };
 
@@ -150,7 +145,6 @@ export async function fieldRecord(): Promise<FieldRecord | null> {
       recordings: count(AUDIO),
       sites: count(SITE),
       contributors: series.uniqueUsers,
-      growth: series.data.map((p) => ({ date: p.date, total: p.cumulative })),
       sightings,
     };
   } catch {
