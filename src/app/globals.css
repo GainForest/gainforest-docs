@@ -881,12 +881,6 @@
   }
 }
 
-@keyframes gf-marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @keyframes gf-breathe {
   from {
     transform: scale(0.94);
@@ -938,30 +932,30 @@
     animation: gf-enter 500ms var(--ease-out-strong) backwards;
   }
 
-  /* The halo behind the globe breathes on a long loop. */
-  .hero-glow {
-    background: radial-gradient(
-      closest-side,
-      color-mix(in oklch, var(--primary) 24%, transparent),
-      transparent
-    );
-    animation: gf-breathe 6s ease-in-out infinite alternate;
+  /* The field wall: the timer bar that turns it, paused while held; a
+     scrim so the caption reads on any photo; the ring on the picked thumb. */
+  .field-timer {
+    transform-origin: 0 50%;
+    animation: gf-grow-x 5200ms linear both;
+  }
+  .field-timer.is-paused {
+    animation-play-state: paused;
+  }
+  .field-scrim {
+    background: linear-gradient(to top, oklch(0 0 0 / 0.7), transparent);
+  }
+  .field-ring {
+    outline: 2px solid var(--primary);
+    outline-offset: -2px;
   }
 
-  /* As the hero scrolls away, the globe sinks and dims: a scroll-driven
-     animation on the panel's scroll, off the main thread. Unsupported
-     browsers keep it still. */
-  @supports (animation-timeline: view()) {
-    .hero-scroll {
-      animation: gf-scroll-away linear both;
-      animation-timeline: view();
-      animation-range: exit 0% exit 100%;
-    }
+  /* The growth line draws itself once; the fill fades in under it. */
+  .growth-line {
+    stroke-dasharray: 1;
+    animation: gf-stroke 1600ms var(--ease-out-strong) 300ms backwards;
   }
-
-  /* A focused organization's name, pinned on the globe. */
-  .globe-tag {
-    animation: gf-rise var(--duration-menu) var(--ease-out-strong) backwards;
+  .growth-area {
+    animation: gf-fade 900ms var(--ease-out-strong) 900ms backwards;
   }
 
   /* "I want to ___": the underline brightens and the arrow nudges on hover;
@@ -989,27 +983,6 @@
     animation: gf-grow-x 3600ms linear both;
   }
   .intent-timer.is-paused {
-    animation-play-state: paused;
-  }
-
-  /* The roster strip: two copies of one row, translated by half, so the
-     loop has no seam. Edges fade out rather than cut. Paused while it is
-     being pointed at or has focus. */
-  .marquee {
-    overflow: hidden;
-    mask-image: linear-gradient(
-      to right,
-      transparent,
-      var(--foreground) 6%,
-      var(--foreground) 94%,
-      transparent
-    );
-  }
-  .marquee-track {
-    animation: gf-marquee var(--marquee-duration, 120s) linear infinite;
-  }
-  .marquee:hover .marquee-track,
-  .marquee:focus-within .marquee-track {
     animation-play-state: paused;
   }
 
@@ -1228,18 +1201,12 @@ html[data-reading] article {
   }
 }
 
-/* Reduced motion on the welcome page: the roster strip stops and scrolls by
-   hand instead, the globe no longer sinks as the hero scrolls away, and the
-   intent line's timer does not run, so it never turns on its own. The
+/* Reduced motion on the welcome page: the field wall and the intent line's
+   timers do not run, so neither turns on its own. The
    rest is covered by the global rule above (loops settle on their end
    state). */
 @media (prefers-reduced-motion: reduce) {
-  .marquee {
-    overflow-x: auto;
-    mask-image: none;
-  }
-  .marquee-track,
-  .hero-scroll,
+  .field-timer,
   .intent-timer.is-running {
     animation: none !important;
   }

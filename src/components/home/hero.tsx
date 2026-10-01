@@ -1,43 +1,22 @@
 import { ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
 
-import { HeroGlobe } from "@/components/home/hero-globe";
+import { CountUp } from "@/components/home/count-up";
+import { FieldWall } from "@/components/home/field-wall";
+import { GrowthCurve } from "@/components/home/growth-curve";
 import { HeroTitle } from "@/components/home/hero-title";
 import { IntentRoller, type Intent } from "@/components/home/intent-roller";
-import { OrgCount } from "@/components/home/org-count";
-import { OrgMarquee } from "@/components/home/org-marquee";
 import { Button } from "@/components/ui/button";
 import { site } from "@/lib/site";
-import { globeOrganizations, type GlobeOrg } from "@/lib/upstream/globe";
-
-/** Test and placeholder accounts in the public roster are not shown off. */
-const PLACEHOLDER = /\b(test|demo|delete|sample|example)\b/i;
-const ROSTER_SIZE = 36;
-
-/**
- * A readable slice of the roster for the strip: real names only, one per
- * name, spread evenly through the list so it is not just the newest ones.
- */
-function rosterFrom(orgs: GlobeOrg[]): GlobeOrg[] {
-  const seen = new Set<string>();
-  const named = orgs.filter((o) => {
-    const key = o.name.trim().toLowerCase();
-    if (o.name === "An organization" || PLACEHOLDER.test(o.name) || o.name.length > 40 || seen.has(key)) return false;
-    seen.add(key);
-    return true;
-  });
-  const step = Math.max(1, named.length / ROSTER_SIZE);
-  return Array.from({ length: Math.min(ROSTER_SIZE, named.length) }, (_, i) => named[Math.floor(i * step)]).filter(
-    (o): o is GlobeOrg => o !== undefined,
-  );
-}
+import { fieldRecord } from "@/lib/upstream/field-record";
 
 /**
  * The welcome page's first screen: the headline, what this site is, the
- * "I want to" line, and the live globe of every organization on GainForest,
- * with a strip of their names beneath that steers it. The roster is read at
- * build time and refreshed daily; if it cannot be read the globe says so and
- * the rest of the hero stands on its own.
+ * "I want to" line, and what communities have actually recorded with these
+ * tools: recent photographed observations from the field, the running
+ * totals, and how the record has grown. All of it is read from GainForest's
+ * public indexer at build time and refreshed daily; if it cannot be read
+ * the copy stands on its own and no figure is shown.
  */
 export async function Hero({
   title,
@@ -50,12 +29,18 @@ export async function Hero({
   intents: Intent[];
   children: ReactNode;
 }) {
-  const orgs = await globeOrganizations();
-  const roster = orgs ? rosterFrom(orgs) : [];
+  const record = await fieldRecord();
+  const figures = record
+    ? [
+        { value: record.recordings, label: "sound recordings" },
+        { value: record.sites, label: "mapped sites" },
+        { value: record.contributors, label: "contributors" },
+      ]
+    : [];
 
   return (
-    <section aria-labelledby="welcome-title" className="hero-enter flex flex-col gap-10">
-      <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-6">
+    <section aria-labelledby="welcome-title" className="hero-enter flex flex-col gap-6">
+      <div className="grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-10">
         <div className="flex flex-col gap-6">
           <HeroTitle id="welcome-title" text={title} accent={accent} />
           <div className="flex max-w-xl flex-col gap-3 text-lg text-pretty text-muted-foreground [&_strong]:font-medium [&_strong]:text-foreground">
@@ -64,19 +49,30 @@ export async function Hero({
           <div>
             <IntentRoller intents={intents} />
           </div>
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+          <div>
             <Button asChild size="lg">
               <a href={site.app} target="_blank" rel="noreferrer" className="lift" data-pressable>
                 Open GainForest.app
                 <ArrowUpRight aria-hidden data-icon="inline-end" className="lift-arrow lift-arrow-out" />
               </a>
             </Button>
-            {orgs ? <OrgCount count={orgs.length} /> : null}
           </div>
+          {figures.length > 0 ? (
+            <dl className="flex flex-wrap gap-x-8 gap-y-3">
+              {figures.map((f, i) => (
+                <div key={f.label} className="flex flex-col">
+                  <dt className="order-2 text-sm text-muted-foreground">{f.label}</dt>
+                  <dd className="order-1 text-2xl font-semibold tracking-tight">
+                    <CountUp value={f.value} delay={0.5 + i * 0.12} />
+                  </dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
         </div>
-        <HeroGlobe orgs={orgs} />
+        {record && record.sightings.length > 0 ? <FieldWall sightings={record.sightings} /> : null}
       </div>
-      {roster.length > 0 ? <OrgMarquee orgs={roster} /> : null}
+      {record ? <GrowthCurve growth={record.growth} total={record.observations} /> : null}
     </section>
   );
 }
