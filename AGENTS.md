@@ -205,6 +205,12 @@ but only make sense on that page:
 
 `layout` is parsed in `src/lib/source.tsx`; any other page leaves it unset.
 
+**Diagrams** (`src/components/mdx/data-graphics.tsx`), server-rendered and
+used on `/bumicerts/your-data`: `<AccountHub />` (one Certified account, many
+apps), `<PublicPrivate />`, `<DataUse />`, and `<RemoveFlow />` (a flowchart
+for deleting a post or an account). Their copy restates that page; change both
+together.
+
 Site-wide, with no authoring needed: reading mode (header toggle or `r`;
 anything a reader can do without, mark `data-reading-hide`), glossary terms (first use per page, from
 `src/lib/glossary.ts` via `remark-glossary`), copy-link on headings, image

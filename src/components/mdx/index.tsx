@@ -9,6 +9,7 @@ import { Journey, JourneyStep } from "@/components/home/journey";
 import { Live } from "@/components/home/live";
 import { ButtonLink } from "@/components/mdx/button-link";
 import { Callout } from "@/components/mdx/callout";
+import { AccountHub, DataUse, PublicPrivate, RemoveFlow } from "@/components/mdx/data-graphics";
 import { Card, Cards } from "@/components/mdx/cards";
 import { Embed } from "@/components/mdx/embed";
 import { Figure } from "@/components/mdx/figure";
@@ -69,6 +70,10 @@ export const mdxComponents: MDXComponents = {
   UploadPicker,
   ButtonLink,
   Callout,
+  AccountHub,
+  DataUse,
+  PublicPrivate,
+  RemoveFlow,
   Card,
   Cards,
   Embed,
