@@ -209,7 +209,7 @@ Site-wide, with no authoring needed: reading mode (header toggle or `r`;
 anything a reader can do without, mark `data-reading-hide`), glossary terms (first use per page, from
 `src/lib/glossary.ts` via `remark-glossary`), copy-link on headings, image
 zoom on every `Figure`, read time and git "updated" date, "Was this helpful?"
-(forwarded to `FEEDBACK_WEBHOOK_URL` if set), and keyboard shortcuts.
+(stored in Supabase `docs_feedback`, optionally also posted to `FEEDBACK_WEBHOOK_URL`), and keyboard shortcuts.
 
 **Nothing interactive invents a fact.** Every figure, date, and capability
 comes from a page in `content/docs`, a file in `content/data`, or a live

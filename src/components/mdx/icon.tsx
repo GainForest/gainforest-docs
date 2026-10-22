@@ -1,5 +1,6 @@
 import { createElement } from "react";
 import {
+  ShieldCheck,
   Binoculars,
   BookHeart,
   Bot,
@@ -71,6 +72,7 @@ const ICONS: Record<string, LucideIcon> = {
   robot: Bot,
   "screen-users": Presentation,
   seedling: Sprout,
+  "shield-check": ShieldCheck,
   sparkles: Sparkles,
   tree: TreeDeciduous,
   upload: Upload,

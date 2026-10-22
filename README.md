@@ -31,7 +31,9 @@ MDX: `Callout`, `Cards` + `Card`, `PageLink`, `Embed`, `Figure`, `Steps` +
 
 | Variable | Needed for |
 | --- | --- |
-| `FEEDBACK_WEBHOOK_URL` | Optional. Where "Was this helpful?" votes are posted (Slack or Discord style JSON). Without it they go to the function log. |
+| `SUPABASE_URL` | Where "Was this helpful?" votes are stored (table `docs_feedback`; run `supabase/migrations/` once, via `supabase db push` or the SQL editor). |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-only key for the insert. Never expose it with a `NEXT_PUBLIC_` prefix. Without these two, votes go to the function log. |
+| `FEEDBACK_WEBHOOK_URL` | Optional. Also posts each vote to Slack or Discord style JSON. |
 | `VERCEL_DEEP_CLONE=true` | On Vercel, so git history is available for "Updated" dates. |
 
 ## Layout

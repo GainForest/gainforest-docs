@@ -13,6 +13,7 @@
     "postinstall": "fumadocs-mdx"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.2",
     "@types/mdx": "^2.0.14",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
